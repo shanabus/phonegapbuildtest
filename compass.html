@@ -11,19 +11,30 @@
 		<div data-role="page" id="pageCompass" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
 				var compassInterval;
+				compassInterval = setInterval(updateHeading, 700);
 				
 				$("#pageCompass").bind('pageinit', function() {
 					$("#selCompass").off('change').on('change', function() {
 						if ($(this).val() == 'on') {
-							compassInterval = setInterval(updateHeading, 500);
+							compassInterval = setInterval(updateHeading, 700);
 						}
 						else
 						{
 							clearInterval(compassInterval);
 						}
-						alert($(this).val());
 					});
 				});
+				
+				$(function() {
+
+				function rotate(degree) {
+					var $needle = $("#needle");
+					// For webkit browsers: e.g. Chrome
+				    $needle.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
+				    // For Mozilla browser: e.g. Firefox
+				    $needle.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
+				}
+
 				
 				function updateHeading() {
 					navigator.compass.getCurrentHeading(compassSuccess, compassError);
@@ -32,6 +43,7 @@
 				function compassSuccess(heading) {
 					//alert('Heading: ' + heading.magneticHeading);
 					$("#currentHeading").text(heading.magneticHeading);
+					rotate(heading.magneticHeading)
 				};
 
 				function compassError(error) {
@@ -53,7 +65,9 @@
 				</select>
 				
 				<div id="currentHeading"></div>
-				
+				<div style="position:relative;">
+					<div id="needle" style="display: block; width: 40px; height: 140px; background-color: #ddd; position: absolute; left: 200px;"><div style="color: #fff; background-color: red;">N</div></div>
+				</div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

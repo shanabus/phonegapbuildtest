@@ -10,10 +10,20 @@
 
 		<div data-role="page" id="pageAccelerometer" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
+				var accelInterval;
 				
-				$("#pageAccelerometer").bind('pageinit', function() {					
-					$("#btnAcceleration").off('click').on('click', function() {
-						updateAcceleration();
+				$("#pageAccelerometer").bind('pageinit', function() {		
+					
+					accelInterval = setInterval(updateAcceleration, 500);				
+					
+					$("#selAccel").off('change').on('change', function() {
+						if ($(this).val() == 'on') {
+							accelInterval = setInterval(updateAcceleration, 700);
+						}
+						else
+						{
+							clearInterval(accelInterval);
+						}						
 					});
 				});
 				
@@ -38,7 +48,11 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<a data-role="button" id="btnAcceleration">Get Readings</a>
+				<label for="selCompass">Get Readings:</label>
+				<select name="selAccel" id="selAccel" data-role="slider" data-theme="c" data-track-theme="a">
+						<option value="on">On</option>
+						<option value="off">Off</option>
+				</select>
 				<br />
 				<label id="xAccel"></label>
 				<br />
