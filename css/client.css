@@ -1,0 +1,7 @@
+/*  CLIENT SPECIFIC */
+
+#ulAnswers { list-style-type: none; width: 90%; }
+#ulAnswers .ui-selecting { background: #FECA40; }
+#ulAnswers .ui-selected { background: #F39814; color: white; }
+#ulAnswers li { margin: 4px; } 
+.answerText {  } 
