@@ -8,23 +8,15 @@
     </head>
     <body>
 
-		<div data-role="page" id="pageCompass" data-cache="never">
+		<div data-role="page" id="pageAccelerometer" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
-				$("#pageCompass").bind('pageShow', function() {
-					navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+				$("#pageAccelerometer").bind('pageshow', function() {
+					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
 				});
-				
-				function onSuccess(heading) {
-					alert('Heading: ' + heading.magneticHeading);
-				};
-
-				function onError(error) {
-					alert('CompassError: ' + error.code);
-				};
 			</script>
 		
 			<div data-role="header">
-				<h1>Compass</h1>
+				<h1>Accelerometer</h1>
 			</div><!-- /header -->
 
 			<div data-role="content">	

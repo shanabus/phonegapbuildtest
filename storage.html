@@ -10,20 +10,9 @@
 
 		<div data-role="page" id="pageAccelerometer" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
-				$("#pageAccelerometer").bind('pageshow', function() {					
-					//navigator.accelerometer.getCurrentAcceleration(accelerometerSuccess, accelerometerError);
+				$("#pageAccelerometer").bind('pageshow', function() {
+					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
 				});
-				
-				function onSuccess(acceleration) {
-					alert('Acceleration X: ' + acceleration.x + '\n' +
-						  'Acceleration Y: ' + acceleration.y + '\n' +
-						  'Acceleration Z: ' + acceleration.z + '\n' +
-						  'Timestamp: '      + acceleration.timestamp + '\n');
-				};
-
-				function onError() {
-					alert('onError!');
-				};
 			</script>
 		
 			<div data-role="header">
