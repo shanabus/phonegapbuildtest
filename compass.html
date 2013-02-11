@@ -10,9 +10,9 @@
 
 		<div data-role="page" id="pageCompass" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
-				$("#pageCompass").bind('pageshow', function() {
+				$("#pageCompass").bind('pageinit', function() {
 					$("#btnCompass").off('click').on('click', function() {
-						navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+						navigator.compass.getCurrentHeading(compassSuccess, compassError);
 					});
 				});
 				
