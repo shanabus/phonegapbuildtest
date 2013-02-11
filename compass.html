@@ -11,7 +11,9 @@
 		<div data-role="page" id="pageCompass" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
 				$("#pageCompass").bind('pageshow', function() {
-					navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					$("#btnCompass").off('click').on('click', function() {
+						navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					});
 				});
 				
 				function onSuccess(heading) {
@@ -28,7 +30,7 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<a data-role="button" id="btnCompass">Compass</a>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

@@ -11,7 +11,9 @@
 		<div data-role="page" id="pageAccelerometer" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
 				$("#pageAccelerometer").bind('pageshow', function() {					
-					//navigator.accelerometer.getCurrentAcceleration(accelerometerSuccess, accelerometerError);
+					$("#btnAcceleration").off('click').on('click', function() {
+						navigator.accelerometer.getCurrentAcceleration(accelerometerSuccess, accelerometerError);
+					});
 				});
 				
 				function onSuccess(acceleration) {
@@ -21,7 +23,7 @@
 						  'Timestamp: '      + acceleration.timestamp + '\n');
 				};
 
-				function onError() {
+				function accelerometerError() {
 					alert('onError!');
 				};
 			</script>
@@ -31,7 +33,7 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<a data-role="button" id="btnAcceleration">Get Readings</a>
 			</div><!-- /content -->
 
 		</div><!-- /page -->
