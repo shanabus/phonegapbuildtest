@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PGB Kitchen Sink</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+
+		<div data-role="page" id="pageAccelerometer" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				$("#pageAccelerometer").bind('pageShow', function() {
+					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+				});
+			</script>
+		
+			<div data-role="header">
+				<h1>Accelerometer</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">	
+				<div id="currentHeading"></div>
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+    				
+    </body>
+</html>

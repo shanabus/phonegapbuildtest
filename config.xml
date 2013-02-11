@@ -2,7 +2,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.grappsmobile.pgbtest"
-        version   = "2.0.0">
+        version   = "0.0.1">
     <name>PGB Test</name>
 
     <description>
@@ -15,7 +15,7 @@
 
     <!-- <feature name="http://api.phonegap.com/1.0/device" /> -->
 
-    <preference name="phonegap-version" value="2.2.0" />
+    <preference name="phonegap-version" value="2.3.0" />
     <preference name="orientation"      value="portrait" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
@@ -46,6 +46,8 @@
     <gap:splash src="res/screen/ios/screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />-->
+			
+	<plugin name="Compass" value="org.apache.cordova.CompassListener" />
 			
 	<access origin="*" />
 
