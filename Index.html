@@ -1,320 +1,54 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.1.2.min.css" />
-        <title>GR TV :: Sample Game</title>        
-        <script type="text/javascript" src="js/jquery.1.8.2.min.js"></script>
-        <script type="text/javascript" src="js/jquery.mobile.1.2.min.js"></script>
-		
+        <title>PGB Kitchen Sink</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/jquery.mobile.1.2.min.css" />         
+        
+        <script src="js/jquery.1.8.2.min.js" type="text/javascript"></script>
+		<script src="js/jquery.mobile.1.2.min.js"></script>        
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+				
 		<script type="text/javascript" charset="utf-8">
-			
-			var debug = false;
-			
-			var GAME_ID = 0;
-			var PLAYER_ID = 0;
-			var QUESTION_ID = 0;
-			var ROUND_ID = 0;
-			var ROUND_NUMBER = 1;
-			
-			var QUESTION_LOAD_INTERVAL;
-			var QUESTION_LOAD_SPEED = 1000;
-			
-			var CHECK_FOR_ROUND_END_INTERVAL;
-			var CHECK_FOR_ROUND_END_SPEED = 1000;
-			
-			var CURRENT_GAME_ROUND_TIMEOUT;
-			var CURRENT_GAME_ROUND_SPEED = 1000;
-			
-			var CURRENT_SCORE = 0;
-			
-			var baseUrl = 'http://grappsmobile.com/grtv/';
+						
+			//var baseUrl = 'http://grappsmobile.com/grtv/';
 			
 			$(function() {
-				$("#btnJoinGame").on('click', function() {					
-					$.mobile.changePage("#pageTest", { transition: "slideup"});
-					joinGame();
-					//skipJoin();
-				});				
 				
-				$('div').live('pagehide', function(event, ui){
-				  var page = $(event.target);
-				
-				  if(page.attr('data-cache') == 'never'){
-					page.remove();
-				  };
-				});
 			});
-			
-			function joinGame() {
-				var name = $("#txtName").val();
-				var gameCode = $("#txtGameCode").val();
-				if (name != "" && gameCode != "") { 
-					$.ajax({
-					  type: "POST",
-					  url: baseUrl + 'game.php?method=joingame',
-					  data: { gameCode: gameCode, name: name },
-					  dataType: "json",
-					  success: function(data) {
-						if (data != "false") {
-							PLAYER_ID = data.playerId;
-							GAME_ID = data.gameId;
-							getCurrentGameRound();
-							$.mobile.changePage("#pagePlayGame", { transition: "slideup"});						
-						} else {
-							alert("there was a problem joining this game");
-						}
-					  },
-						error:  function(jqXHR, exception) {
-							if (jqXHR.status === 0) {
-								alert('Not connect.\n Verify Network.');
-							} else if (jqXHR.status == 404) {
-								alert('Requested page not found. [404]');
-							} else if (jqXHR.status == 500) {
-								alert('Internal Server Error [500].');
-							} else if (exception === 'parsererror') {
-								alert('Requested JSON parse failed.');
-							} else if (exception === 'timeout') {
-								alert('Time out error.');
-							} else if (exception === 'abort') {
-								alert('Ajax request aborted.');
-							} else {
-								alert('Uncaught Error.\n' + jqXHR.responseText);
-							}
-						}
-					});
-				}
-			}
-			
-			function getCurrentGameRound() {
-				var waitingMessage = (ROUND_NUMBER == 1)? "Waiting for other players to start..." : "Waiting for next question...";
-				$("#playGame h2").html(waitingMessage);
-				$("#controlAnswers .btnAnswer").addClass("ui-disabled");	
 				
-				if ($("#controlAnswers .btnAnswer").length > 0 && $("#controlAnswers .btnAnswer").hasClass("ui-btn-up-b") == false) {
-					$("#playGame h2").html("You did not answer?");
-				}
+			document.addEventListener("deviceready", myDeviceReadyListener, false);
+			
+			function myDeviceReadyListener() {
+				 //console.log("Entering index.html.onDeviceReady");
 				
-				$.ajax({
-					type: "POST",
-					url: baseUrl + 'game.php?method=currentgameround',
-					data: { playerId: PLAYER_ID, gameId: GAME_ID },
-					dataType: "json",
-					success: function(currentround) {
-						if (currentround != null && currentround.roundId > 0) { // game has not started							
-							if (debug) console.debug(currentround);
-							clearTimeout(CURRENT_GAME_ROUND_TIMEOUT);
-							ROUND_ID = currentround.roundId;
-							ROUND_NUMBER = currentround.roundNumber;
-							QUESTION_ID = currentround.questionId;
-							if (debug) console.log("set for round " + ROUND_NUMBER);
-							$("#pagePlayGame h1").html("Round " + ROUND_NUMBER);
-							$("#playGame h2").html("Choose an answer:");
-							$("#pagePlayGameFooter h2").html("Current score = " + CURRENT_SCORE + " pts");
-							
-							getAnswers();
-							if (debug) console.log("have current round, checking for round end");
-							CHECK_FOR_ROUND_END_INTERVAL = setInterval(checkForRoundEnd, CHECK_FOR_ROUND_END_SPEED);
-						} else {
-							if (debug) console.debug(currentround);
-							if (debug) console.log("Round not found for game, I will check again");
-							CURRENT_GAME_ROUND_TIMEOUT = setTimeout(getCurrentGameRound, CURRENT_GAME_ROUND_SPEED); // need interval here?
-						}
-					}					
-				});
-			}
-			
-			function checkForRoundEnd() {
-				$("#playGame h2").html("Choose an answer:"); 
-				$.ajax({
-					type: "POST",
-					url: baseUrl + 'game.php?method=roundendcheck',
-					data: { playerId: PLAYER_ID, gameId: GAME_ID, roundId: ROUND_ID },
-					dataType: "json",
-					success: function(roundend) {
-						if (roundend.isOver == "1") {
-							clearInterval(CHECK_FOR_ROUND_END_INTERVAL);
-							if (debug) console.log("round is over");
-							
-							// tally Results
-							if (roundend.isCorrect == "1") {
-								$("#pagePlayGameFooter h2").html("Correct!");
-								$("#pagePlayGameFooter").show();
-								CURRENT_SCORE += 100;
-							} 
-							else if ($("#controlAnswers .btnAnswer").hasClass("ui-btn-up-b") != false)
-							{
-								$("#pagePlayGameFooter h2").html("Wrong answer!")
-								$("#pagePlayGameFooter").show();
-							}							
-							// show tally results
-							
-							getCurrentGameRound();
-						} else {
-							if (debug) console.log("still waiting...");
-						}
-					}					
-				});
-			}
-						
-			function getAnswers() {
-				$.ajax({
-					type: "POST",
-					url: baseUrl + 'game.php?method=answers',
-					data: { playerId: PLAYER_ID, questionId: QUESTION_ID, gameId: GAME_ID },
-					dataType: "json",
-					success: function(answers) {
-						$("#controlAnswers").empty();
-						var answerHtml ='';
-						for(var a = 0; a < answers.length; a++) {
-							answerHtml += '<a class="btnAnswer btn" data-role="button" data-theme="e" data-answer-id="' + answers[a].answerId + '">' + (a+1) + '. &nbsp; <span class="answerText">' + answers[a].answer + '</span></a>';
-						}
-						$("#controlAnswers").append(answerHtml);
-						$("#playGame").trigger( "create" );
-						$("#controlAnswers .btnAnswer").on('click', submitAnswer);
-					}					
-				});
-			}
-			
-			function submitAnswer(e) {
-				$("#playGame h2").html("Submitting Answer");
-				var callerObj = e.currentTarget;				
-				$(callerObj).attr("data-theme", "b").addClass("ui-btn-up-b").removeClass("ui-btn-up-e ui-btn-hover-e");
-				var answerId = $(callerObj).data("answer-id");
-				$("#controlAnswers .btnAnswer").addClass("ui-disabled");				
-				$.ajax({
-					type: "POST",
-					url: baseUrl + 'game.php?method=answerquestion',
-					data: { playerId: PLAYER_ID, answerId: answerId, questionId: QUESTION_ID, gameId: GAME_ID },
-					dataType: "json",
-					success: function(response) {
-						if (debug) console.log("answer was submitted");
-						$("#playGame h2").html("Waiting for round to end...");
-					},
-					error: function() {
-						alert("could not connect to game");
-					}
-				});
-			}
-									
-			function stopGame() {
-				clearInterval(QUESTION_LOAD_INTERVAL);
-				clearInterval(CHECK_FOR_ROUND_END_INTERVAL);
-				clearTimeout(CURRENT_GAME_ROUND_TIMEOUT);
-			}
+				 var html = "";
+				 html = html + "<li>" + 'Device Name: ' + device.name + "</li>";
+				 html = html + "<li>" + 'Device Cordova: ' + device.cordova + "</li>";
+				 html = html + "<li>" + 'Device Platform: ' + device.platform + "</li>";
+				 html = html + "<li>" + 'Device UUID: ' + device.uuid + "</li>";
+				 //onsole.log(html);
+
+				 $("#deviceProperties").html(html);
+				 $("#deviceProperties").listview('refresh');
+				 //console.log("Exiting index.html.onDeviceReady");
+			} 
 		</script>
 		
     </head>
     <body>
-<!--        <div data-role="page">
 
-            <div data-role="header">
-                <h1>My Title</h1>
-            </div>
-        
-            <div data-role="content">	
-                <p>Hello world</p>	
-                
-				<br />
-				<a data-role="button" href="page5.html">Page 5</a>
-				
-				<ul id="deviceProperties"></ul>
-				
-				<a href="page5.html">another one</a>
-            </div>
-        
-        </div> -->
-		<div data-role="page" id="pageJoinGame" data-cache="never">
+		<div data-role="page" id="pageHome" data-cache="never">
 			<div data-role="header">
-				<h1>GR TV :: Sample Game</h1>
+				<h1>PGB APIs</h1>
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="joinGame">
-					<div data-role="fieldcontain">
-						<label for="txtName">Name:</label>
-						<input type="text" id="txtName" maxlength="100" />
-					</div>
-					<br />
-					<div data-role="fieldcontain">
-						<label for="txtGameCode">Game Code:</label>
-						<input type="text" value="" id="txtGameCode" maxlength="4" />
-					</div>
-					<br />
-					<button id="btnJoinGame">Join Game</button>                                
-					<ul id="deviceProperties">
-						<li>Properties go here</li>
-					</ul>
-				</div>	
+				<div id="deviceProperties">&nbsp;</div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->
-    
-		<div data-role="page" id="pagePlayGame" data-cache="never">
-
-			<div data-role="header">
-				<h1>Round 1</h1>
-			</div><!-- /header -->
-
-			<div data-role="content">					
-				<div id="playGame">
-					<h2>Choose an answer:</h2>				
-					<br />
-					<div id="controlAnswers" data-role="controlgroup"></div>
-				</div>
-			</div><!-- /content -->
-			
-            <div data-role="footer" id="pagePlayGameFooter" data-theme="a" data-position="fixed">
-            	<h2>Current score = 0 pts</h2>
-            </div>
-            
-		</div><!-- /page -->
-		
-		
-		<div data-role="page" id="pageTest" data-cache="never" data-theme="d">
-
-			<div data-role="header">
-				<h1>jQuery Works!</h1>
-			</div><!-- /header -->
-
-			<div data-role="content">					
-				<div>
-					You made it this far...
-				</div>
-			</div><!-- /content -->
-			
-            <div data-role="footer" id="pagePlayGameFooter" data-theme="a" data-position="fixed">
-            	<h2>Now get the rest working</h2>
-            </div>
-            
-		</div><!-- /page -->
-
-        <script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript">
-            app.initialize();
-        </script>
-		
-		<script type="text/javascript" charset="utf-8">
-			document.addEventListener("deviceready", myDeviceReadyListener, false);
-			
-			function myDeviceReadyListener() {
-			 //console.log("Entering index.html.onDeviceReady");
-			
-			 var html = "";
-			 html = html + "<li>" + 'Device Name: ' + device.name + "</li>";
-			 html = html + "<li>" + 'Device Cordova: ' + device.cordova + "</li>";
-			 html = html + "<li>" + 'Device Platform: ' + device.platform + "</li>";
-			 html = html + "<li>" + 'Device UUID: ' + device.uuid + "</li>";
-			 //onsole.log(html);
-
-			 $("#deviceProperties").html(html);
-			 $("#deviceProperties").listview('refresh');
-			 //console.log("Exiting index.html.onDeviceReady");
-			} 
-		</script>
-
+    				
     </body>
 </html>
