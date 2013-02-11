@@ -10,8 +10,9 @@
 
 		<div data-role="page" id="pageAccelerometer" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
-				$("#pageAccelerometer").bind('pageshow', function() {					
+				$("#pageAccelerometer").bind('pageinit', function() {					
 					$("#btnAcceleration").off('click').on('click', function() {
+						alert("trying");
 						navigator.accelerometer.getCurrentAcceleration(accelerometerSuccess, accelerometerError);
 					});
 				});
