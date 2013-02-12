@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PGB Kitchen Sink</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+				
+		<div data-role="page" id="pageContactsFind" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				$("#pageContactsFind").bind('pageshow', function() {
+					$("#btnFind").off('click').on("click", function() {
+						$("#contactsFindResult").html("");
+						searchContacts();
+					});
+				});				
+				
+				function searchContacts() {
+					var options = new ContactFindOptions();
+					options.filter= $("#txtContactName").val(); 
+					var fields = ["displayName", "name"];
+					navigator.contacts.find(fields, onSuccess, onError, options);
+				}
+				
+				// onSuccess: Get a snapshot of the current contacts
+				//
+				function onSuccess(contacts) {
+					for (var i=0; i<contacts.length; i++) {
+						$("#contactsFindResult").append("<p>Display Name = " + contacts[i].displayName + "</p>");
+					}
+				}
+
+				// onError: Failed to get the contacts
+				//
+				function onError(contactError) {
+					alert('onError!');
+				}
+			</script>
+		
+			<div data-role="header">
+				<h1>Contacts Find</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">	
+				<input type="text" id="txtContactName" /> <a data-role="button" id="btnFind">Find</a>
+				<div id="contactsFindResult"></div>
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+    				
+    </body>
+</html>
