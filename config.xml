@@ -49,6 +49,7 @@
 	
 	<gap:plugin name="Accelerometer" value="org.apache.cordova.AccelListener" />
 	<gap:plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
+	<gap:plugin name="Capture" value="org.apache.cordova.Capture"/>
 	<gap:plugin name="Compass" value="org.apache.cordova.CompassListener" />
 			
 	<access origin="*" />

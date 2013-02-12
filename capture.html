@@ -20,7 +20,62 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<a data-role="button" id="btnCapture">Camera</a>
+				<ul>
+					<li><a href="#pageCaptureAudio">Audio</a></li>
+					<li><a href="#pageCaptureImage">Image</a></li>
+					<li><a href="#pageCaptureVideo">Video</a></li>
+				</ul>
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+		
+		<div data-role="page" id="pageCaptureAudio" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				$("#pageCaptureAudio").bind('pageshow', function() {
+					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+				});
+			</script>
+		
+			<div data-role="header">
+				<h1>Capture Audio</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">	
+				
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+		
+		<div data-role="page" id="pageCaptureImage" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				$("#pageCaptureImage").bind('pageshow', function() {
+					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+				});
+			</script>
+		
+			<div data-role="header">
+				<h1>Capture Image</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">	
+				
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+		
+		<div data-role="page" id="pageCaptureVideo" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				$("#pageCaptureVideo").bind('pageshow', function() {
+					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+				});
+			</script>
+		
+			<div data-role="header">
+				<h1>Capture Video</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">	
+				
 			</div><!-- /content -->
 
 		</div><!-- /page -->
