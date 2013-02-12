@@ -51,6 +51,7 @@
 	<gap:plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<gap:plugin name="Capture" value="org.apache.cordova.Capture"/>
 	<gap:plugin name="Compass" value="org.apache.cordova.CompassListener" />
+	<gap:plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager" />
 			
 	<access origin="*" />
 

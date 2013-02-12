@@ -39,7 +39,7 @@
 				};
 
 				function accelerometerError() {
-					alert('onError!');
+					$("#error").append('<p>error</p>');
 				};
 			</script>
 		
@@ -54,6 +54,7 @@
 						<option value="off">Off</option>
 				</select>
 				<br />
+				<br />
 				<label id="xAccel"></label>
 				<br />
 				<label id="yAccel"></label>
@@ -62,6 +63,7 @@
 				<br />
 				<label id="timeStamp"></label>
 				<br />
+				<div id="error"></div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

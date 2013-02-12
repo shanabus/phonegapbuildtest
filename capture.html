@@ -10,6 +10,8 @@
 
 		<div data-role="page" id="pageCapture" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
+				//http://docs.phonegap.com/en/2.3.0/cordova_media_capture_capture.md.html#Capture
+				
 				$("#pageCapture").bind('pageshow', function() {
 					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
 				});
@@ -20,7 +22,7 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<ul>
+				<ul data-role="listview">
 					<li><a href="#pageCaptureAudio">Audio</a></li>
 					<li><a href="#pageCaptureImage">Image</a></li>
 					<li><a href="#pageCaptureVideo">Video</a></li>
@@ -34,6 +36,48 @@
 				$("#pageCaptureAudio").bind('pageshow', function() {
 					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
 				});
+				
+				// Called when capture operation is finished
+				//
+				function captureSuccess(mediaFiles) {
+					var i, len;
+					for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+						uploadFile(mediaFiles[i]);
+					}       
+				}
+
+				// Called if something bad happens.
+				// 
+				function captureError(error) {
+					var msg = 'An error occurred during capture: ' + error.code;
+					navigator.notification.alert(msg, null, 'Uh oh!');
+				}
+
+				// A button will call this function
+				//
+				function captureAudio() {
+					// Launch device audio recording application, 
+					// allowing user to capture up to 2 audio clips
+					navigator.device.capture.captureAudio(captureSuccess, captureError, {limit: 2});
+				}
+
+				// Upload files to server
+				function uploadFile(mediaFile) {
+					var ft = new FileTransfer(),
+						path = mediaFile.fullPath,
+						name = mediaFile.name;
+					alert("could now use FileTransfer() to upload '" + name + "' from '" + path + "'");
+					//ft.upload(path,
+					//	"http://my.domain.com/upload.php",
+					//	function(result) {
+					//		console.log('Upload success: ' + result.responseCode);
+					//		console.log(result.bytesSent + ' bytes sent');
+					//	},
+					//	function(error) {
+					//		console.log('Error uploading file ' + path + ': ' + error.code);
+					//	},
+					//	{ fileName: name });   
+				}
 			</script>
 		
 			<div data-role="header">
@@ -41,7 +85,7 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				
+				<button onclick="captureAudio();" data-role="button">Capture Audio</button>
 			</div><!-- /content -->
 
 		</div><!-- /page -->
@@ -51,6 +95,48 @@
 				$("#pageCaptureImage").bind('pageshow', function() {
 					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
 				});
+				
+				// Called when capture operation is finished
+				//
+				function captureSuccess(mediaFiles) {
+					var i, len;
+					for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+						uploadFile(mediaFiles[i]);
+					}       
+				}
+
+				// Called if something bad happens.
+				// 
+				function captureError(error) {
+					var msg = 'An error occurred during capture: ' + error.code;
+					navigator.notification.alert(msg, null, 'Uh oh!');
+				}
+
+				// A button will call this function
+				//
+				function captureImage() {
+					// Launch device camera application, 
+					// allowing user to capture up to 2 images
+					navigator.device.capture.captureImage(captureSuccess, captureError, {limit: 2});
+				}
+
+				// Upload files to server
+				function uploadFile(mediaFile) {
+					var ft = new FileTransfer(),
+						path = mediaFile.fullPath,
+						name = mediaFile.name;
+					alert("could now use FileTransfer() to upload '" + name + "' from '" + path + "'");
+					//ft.upload(path,
+					//	"http://my.domain.com/upload.php",
+					//	function(result) {
+					//		console.log('Upload success: ' + result.responseCode);
+					//		console.log(result.bytesSent + ' bytes sent');
+					//	},
+					//	function(error) {
+					//		console.log('Error uploading file ' + path + ': ' + error.code);
+					//	},
+					//	{ fileName: name });   
+				}
 			</script>
 		
 			<div data-role="header">
@@ -58,7 +144,8 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				
+				<button onclick="captureImage();" data-role="button">Capture Image</button> 
+				<br />
 			</div><!-- /content -->
 
 		</div><!-- /page -->
@@ -68,6 +155,48 @@
 				$("#pageCaptureVideo").bind('pageshow', function() {
 					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
 				});
+				
+				// Called when capture operation is finished
+				//
+				function captureSuccess(mediaFiles) {
+					var i, len;
+					for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+						uploadFile(mediaFiles[i]);
+					}       
+				}
+
+				// Called if something bad happens.
+				// 
+				function captureError(error) {
+					var msg = 'An error occurred during capture: ' + error.code;
+					navigator.notification.alert(msg, null, 'Uh oh!');
+				}
+
+				// A button will call this function
+				//
+				function captureVideo() {
+					// Launch device video recording application, 
+					// allowing user to capture up to 2 video clips
+					navigator.device.capture.captureVideo(captureSuccess, captureError, {limit: 2});
+				}
+
+				// Upload files to server
+				function uploadFile(mediaFile) {
+					var ft = new FileTransfer(),
+						path = mediaFile.fullPath,
+						name = mediaFile.name;
+					alert("could now use FileTransfer() to upload '" + name + "' from '" + path + "'");
+					//ft.upload(path,
+					//	"http://my.domain.com/upload.php",
+					//	function(result) {
+					//		console.log('Upload success: ' + result.responseCode);
+					//		console.log(result.bytesSent + ' bytes sent');
+					//	},
+					//	function(error) {
+					//		console.log('Error uploading file ' + path + ': ' + error.code);
+					//	},
+					//	{ fileName: name });   
+				}
 			</script>
 		
 			<div data-role="header">
@@ -75,7 +204,8 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				
+				<button onclick="captureVideo();" data-role="button">Capture Video</button> 
+				<br>
 			</div><!-- /content -->
 
 		</div><!-- /page -->
