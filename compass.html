@@ -24,9 +24,13 @@
 						}
 						else
 						{
-							clearInterval(compassInterval);
+							stopWatch();
 						}
 					});
+				});
+				
+				$("#pageCompass").live( 'pagehide',function(event, ui){					
+					stopWatch();
 				});
 				
 				function rotate(degree) {

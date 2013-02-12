@@ -27,6 +27,10 @@
 					});
 				});
 				
+				$("#pageCompass").live( 'pagehide',function(event, ui){
+					clearInterval(accelInterval);
+				});
+				
 				function updateAcceleration() {
 					navigator.accelerometer.getCurrentAcceleration(accelerometerSuccess, accelerometerError);
 				}
