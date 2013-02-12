@@ -10,13 +10,17 @@
 
 		<div data-role="page" id="pageCompass" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
-				var compassInterval;
-				compassInterval = setInterval(updateHeading, 700);
+				// http://docs.phonegap.com/en/2.3.0/cordova_compass_compass.md.html#Compass
+			
+				// The watch id references the current `watchHeading`
+				var watchID = null;				
 				
 				$("#pageCompass").bind('pageinit', function() {
+					startWatch();
+				
 					$("#selCompass").off('change').on('change', function() {
 						if ($(this).val() == 'on') {
-							compassInterval = setInterval(updateHeading, 700);
+							startWatch();
 						}
 						else
 						{
@@ -33,20 +37,35 @@
 				    $needle.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
 				}
 
-				
-				function updateHeading() {
-					navigator.compass.getCurrentHeading(compassSuccess, compassError);
+				// Start watching the compass
+				//
+				function startWatch() {
+
+					// Update compass every 3 seconds
+					var options = { frequency: 2000 };
+
+					watchID = navigator.compass.watchHeading(onSuccess, onError, options);
 				}
-				
-				function compassSuccess(heading) {
+					
+				// Stop watching the compass
+				//
+				function stopWatch() {
+					if (watchID) {
+						navigator.compass.clearWatch(watchID);
+						watchID = null;
+					}
+				}
+	
+				function onSuccess(heading) {
 					//alert('Heading: ' + heading.magneticHeading);
-					$("#currentHeading").text(heading.magneticHeading);
+					$("#magneticHeading").text(heading.magneticHeading);
+					$("#trueHeading").text(heading.trueHeading);
 					rotate(heading.magneticHeading)
 				};
 
-				function compassError(error) {
-					//alert('CompassError: ' + error.code);
-					$("#currentHeading").text(error.code);
+				function onError(error) {
+					$("#magneticHeading").text(error.code);
+					$("#trueHeading").text(error.code);
 				};
 			</script>
 		
@@ -62,9 +81,12 @@
 						<option value="off">Off</option>
 				</select>
 				
-				<div id="currentHeading"></div>
+				<label>Magnetic Heading:</label><span id="magneticHeading"></span>
+				<br />
+				<label>True Heading:</label><span id="trueHeading"></span>
+				<br />
 				<div style="position:relative;width: 100%; height: 300px;">
-					<div id="needle" style="display: block; width: 40px; height: 140px; background-color: #ddd; position: absolute; left: 200px;"><div style="color: #fff; background-color: red;">&nbsp;N</div></div>
+					<div id="needle" style="display: block; width: 30px; height: 140px; background-color: #ddd; position: absolute; left: 200px;"><div style="color: #fff; background-color: red;">&nbsp;N</div></div>
 				</div>
 			</div><!-- /content -->
 

@@ -48,6 +48,7 @@
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />-->
 	
 	<gap:plugin name="Accelerometer" value="org.apache.cordova.AccelListener" />
+	<gap:plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<gap:plugin name="Compass" value="org.apache.cordova.CompassListener" />
 			
 	<access origin="*" />
