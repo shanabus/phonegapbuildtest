@@ -10,9 +10,12 @@
 
 		<div data-role="page" id="pageContacts" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
+				//http://docs.phonegap.com/en/2.3.0/cordova_contacts_contacts.md.html#contacts.find 
+				
 				$("#pageContacts").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					
 				});
+
 			</script>
 		
 			<div data-role="header">
@@ -20,7 +23,66 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
+				<div id="c"></div>
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+		
+		<div data-role="page" id="pageContactsCreate" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				$("#pageContactsCreate").bind('pageshow', function() {
+					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+				});
+			</script>
+		
+			<div data-role="header">
+				<h1>Contacts Create</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">	
 				<div id="currentHeading"></div>
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+		
+		<div data-role="page" id="pageContactsFind" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				$("#pageContactsFind").bind('pageshow', function() {
+					$("#btnFind").off('click').on("click", function() {
+						$("#contactsFindResult").html("");
+						searchContacts();
+					});
+				});				
+				
+				function searchContacts() {
+					var options = new ContactFindOptions();
+					options.filter= $("#txtContactName").val(); 
+					var fields = ["displayName", "name"];
+					navigator.contacts.find(fields, onSuccess, onError, options);
+				}
+				
+				// onSuccess: Get a snapshot of the current contacts
+				//
+				function onSuccess(contacts) {
+					for (var i=0; i<contacts.length; i++) {
+						$("#contactsFindResult").append("<p>Display Name = " + contacts[i].displayName + "</p>");
+					}
+				}
+
+				// onError: Failed to get the contacts
+				//
+				function onError(contactError) {
+					alert('onError!');
+				}
+			</script>
+		
+			<div data-role="header">
+				<h1>Contacts Find</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">	
+				<input type="text" id="txtContactName" /> <a data-role="button" id="btnFind">Find</a>
+				<div id="contactsFindResult"></div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

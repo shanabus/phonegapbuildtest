@@ -51,8 +51,11 @@
 	<gap:plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<gap:plugin name="Capture" value="org.apache.cordova.Capture"/>
 	<gap:plugin name="Compass" value="org.apache.cordova.CompassListener" />
+	<gap:plugin name="Contacts" value="org.apache.cordova.ContactManager" />
 	<gap:plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager" />
 	<gap:plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
+	<gap:plugin name="Battery" value="org.apache.cordova.BatteryListener" />
+	<gap:plugin name="Notification" value="org.apache.cordova.Notification"/>
 
 	<access origin="*" />
 

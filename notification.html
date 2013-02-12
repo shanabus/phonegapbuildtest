@@ -8,19 +8,45 @@
     </head>
     <body>
 
-		<div data-role="page" id="pageNotification" data-cache="never">
+		<div data-role="page" id="pageNotifications" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
-				$("#pageNotification").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+				//http://docs.phonegap.com/en/2.3.0/cordova_events_events.md.html#Events
+				
+				$("#pageNotifications").bind('pageshow', function() {
+					
 				});
+				
+				// Show a custom alert
+				//
+				function showAlert() {
+					navigator.notification.alert(
+						'You are the winner!',  // message
+						'Game Over',            // title
+						'Done'                  // buttonName
+					);
+				}
+
+				// Beep three times
+				//
+				function playBeep() {
+					navigator.notification.beep(2);
+				}
+
+				// Vibrate for 2 seconds
+				//
+				function vibrate() {
+					navigator.notification.vibrate(21000);
+				}				
 			</script>
 		
 			<div data-role="header">
-				<h1>Notification</h1>
+				<h1>Notifications</h1>
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<p><a href="#" onclick="showAlert(); return false;" data-role="button">Show Alert</a></p>
+				<p><a href="#" onclick="playBeep(); return false;" data-role="button">Play Beep</a></p>
+				<p><a href="#" onclick="vibrate(); return false;" data-role="button">Vibrate</a></p>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

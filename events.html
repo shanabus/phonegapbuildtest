@@ -10,9 +10,27 @@
 
 		<div data-role="page" id="pageEvents" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
+				//http://docs.phonegap.com/en/2.3.0/cordova_events_events.md.html#Events
+				
 				$("#pageEvents").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					
+					document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
+					document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
+					
 				});
+				
+				// Handle the volume down button
+				//
+				function onVolumeDownKeyDown() {
+					$("#eventMessage").html("Volume Down Pressed");
+				}
+
+				// Handle the volume up button
+				//
+				function onVolumeUpKeyDown() {
+					$("#eventMessage").html("Volume Up Pressed");
+				}
+
 			</script>
 		
 			<div data-role="header">
@@ -20,7 +38,7 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<div id="eventMessage"></div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

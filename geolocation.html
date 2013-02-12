@@ -10,6 +10,8 @@
 
 		<div data-role="page" id="pageGeolocation" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
+				//http://docs.phonegap.com/en/2.3.0/cordova_geolocation_geolocation.md.html#Geolocation
+				
 				$("#pageGeolocation").bind('pageshow', function() {
 					navigator.geolocation.getCurrentPosition(onSuccess, onError);
 				});
