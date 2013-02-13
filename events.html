@@ -12,7 +12,7 @@
 			<script type="text/javascript" charset="utf-8">
 				//http://docs.phonegap.com/en/2.3.0/cordova_events_events.md.html#Events
 				
-				$("#pageEvents").bind('pageshow', function() {
+				$("#pageEvents").bind('pageinit', function() {
 					
 					document.addEventListener("pause", onPause, false);
 					document.addEventListener("resume", onResume, false);
@@ -29,6 +29,12 @@
 					document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
 					document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
 					
+				});
+				
+				$("#pageEvents").bind( 'pagehide',function(event, ui){					
+					document.removeEventListener("backbutton", onBackKeyDown, false);
+					document.removeEventListener("menubutton", onMenuKeyDown, false);
+					document.removeEventListener("searchbutton", onSearchKeyDown, false);
 				});
 				
 				function onPause() {
