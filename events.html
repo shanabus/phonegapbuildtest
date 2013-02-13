@@ -8,7 +8,7 @@
     </head>
     <body>
 
-		<div data-role="page" id="pageEvents" data-cache="never">
+		<div data-role="page" id="pageEvents" data-cache="never" data-add-back-btn="true">
 			<script type="text/javascript" charset="utf-8">
 				//http://docs.phonegap.com/en/2.3.0/cordova_events_events.md.html#Events
 				
@@ -22,80 +22,101 @@
 					
 					window.addEventListener("batterycritical", onBatteryCritical, false);
 					window.addEventListener("batterylow", onBatteryLow, false);
+					window.addEventListener("batterystatus", onBatteryStatus, false);
 					
+					document.addEventListener("menubutton", onMenuKeyDown, false);
+					document.addEventListener("searchbutton", onSearchKeyDown, false);
 					document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
 					document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
 					
 				});
 				
 				function onPause() {
-					$("#eventMessage").html("Pause event fired");
+					$("#eventMessage").append("Pause event fired<br />");
 				}
 								
 				function onResume() {
-					$("#eventMessage").html("Resume event fired");
+					$("#eventMessage").append("Resume event fired<br />");
 				}
 
 				function onOnline() {
-					$("#eventMessage").html("You just got online!");
+					$("#eventMessage").append("You just got online<br />");
 				}
 				
 				// Handle the offline event
 				//
 				function onOffline() {
-					$("#eventMessage").html("You are now offline");
+					$("#eventMessage").append("You are now offline<br />");
 				}
 				
 				// Handle the back button
 				//
 				function onBackKeyDown() {
-					$("#eventMessage").html("Back button was pressed");
+					$("#eventMessage").append("Back button was pressed<br />");
 				}
 				
 				// Handle the batterycritical event
 				//
 				function onBatteryCritical(info) {
-					$("#batteryMessage").html("<span style='color:red;'>Battery Level Critical " + info.level + " - Recharge Soon!</span>");
+					$("#batteryMessage").append("<span style='color:red;'>Battery Level Critical " + info.level + " - Recharge Soon!</span><br />");
 				}
 				
 				// Handle the batterylow event
 				//
 				function onBatteryLow(info) {
-					$("#batteryMessage").html("Battery Level Low " + info.level + "%"); 
+					$("#batteryMessage").append("Battery Level Low " + info.level + "%<br />"); 
 				}
 
 				// Handle the batterystatus event
 				//
 				function onBatteryStatus(info) {
-					$("#batteryMessage").html("Level: " + info.level + " isPlugged: " + info.isPlugged); 
+					$("#batteryMessage").append("Level: " + info.level + " isPlugged: " + info.isPlugged + "<br />"); 
+				}
+				
+				// Handle the menu button
+				//
+				function onMenuKeyDown() {
+					$("#eventMessage").append("Menu button Pressed<br />");
+				}
+
+				// Handle the search button
+				//
+				function onSearchKeyDown() {
+					$("#eventMessage").append("Search button Pressed<br />");
 				}
 
 				// Handle the volume down button
 				//
 				function onVolumeDownKeyDown() {
-					$("#eventMessage").html("Volume Down Pressed");
+					$("#eventMessage").append("Volume Down Pressed<br />");
 				}
 
 				// Handle the volume up button
 				//
 				function onVolumeUpKeyDown() {
-					$("#eventMessage").html("Volume Up Pressed");
-				}
-
+					$("#eventMessage").append("Volume Up Pressed<br />");
+				}			
+				
 			</script>
 		
-			<div data-role="header" data-add-back-btn="true">
+			<div data-role="header">
 				<h1>Events</h1>
 			</div><!-- /header -->
 
 			<div data-role="content">
-				<label>System Events:</label>
-				<br />
-				<div id="eventMessage"></div>
-				<br />
-				<label>Battery Events:</label>
-				<br />
-				<div id="batteryMessage"></div>
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<label>System Events:</label>
+						<br />
+						<div id="eventMessage"></div>
+					</div>
+					<div class="ui-block-b">
+						<label>Battery Events:</label>
+						<br />
+						<div id="batteryMessage"></div>
+					</div>
+				</div><!-- /grid-a -->							
+				
 			</div><!-- /content -->
 					
 		</div><!-- /page -->
