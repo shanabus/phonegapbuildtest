@@ -19,27 +19,39 @@
 			
 				$("#pageFile").bind('pageshow', function() {
 					$("#fileResult").html("");
-					$("#btnGetFile").off("click").on("click", getFile);					
+					$("#btnGetFile").off("click").on("click", getFile);	
+					$("#btnCreateFile").off("click").on("click", createFile);
 				});
 				
+				function createFile() {
+					$("#fileResult").append("Creating file: " + $("#txtFileName").val() + "<br />");
+					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFSCreate, fail);
+				}
+				
 				function getFile() {
-					$("#fileResult").append("Looking for: readme.txt<br />");
+					$("#fileResult").append("Looking for: " + $("#txtFileName").val() + "<br />");
 					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+				}
+				
+				function gotFSCreate(fileSystem) {
+					var fileName = "readme.txt";
+					$("#fileResult").append("<span class='success'>gotFSCreate success</span><br />");
+					fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
 				}
 				
 				function gotFS(fileSystem) {
 					var fileName = "readme.txt";
-					$("#fileResult").append("gotFS success<br />");
-					fileSystem.root.getFile(fileName, null, gotFileEntry, fail);
+					$("#fileResult").append("<span class='success'>gotFS success</span><br />");
+					fileSystem.root.getFile("readme.txt", null, gotFileEntry, fail);
 				}
 
 				function gotFileEntry(fileEntry) {
-					$("#fileResult").append("gotFileEntry success<br />");
+					$("#fileResult").append("<span class='success'>gotFileEntry success</span><br />");
 					fileEntry.file(gotFile, fail);
 				}
 
 				function gotFile(file){
-					$("#fileResult").append("gotFile success<br />");
+					$("#fileResult").append("<span class='success'>gotFile success</span><br />");
 					readDataUrl(file);
 					readAsText(file);
 				}
@@ -63,7 +75,11 @@
 				}
 
 				function fail(evt) {
-					$("#fileResult").append("<span class='error'>" + evt.target.error.code + "</span><br />");
+					$("#fileResult").append("<span class='error'>Error");
+					if (evt != undefined && evt.target != undefined && evt.target.error != undefined) {
+						$("#fileResult").append(evt.target.error.code);
+					}
+					$("#fileResult").append("</span><br />");
 				}
 			</script>
 		
@@ -72,7 +88,9 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
+				<input type="text" id="txtFileName" data-mini="true" />
 				<a href="" data-role="button" id="btnGetFile">Get File</a>
+				<a href="" data-role="button" id="btnCreateFile" data-theme="b">Create File</a>
 				<div id="fileResult"></div>
 			</div><!-- /content -->
 
