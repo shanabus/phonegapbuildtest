@@ -13,6 +13,26 @@
 				$("#pageGlobalization").bind('pageshow', function() {
 					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
 				});
+				
+				function checkLanguage() {
+				  navigator.globalization.getPreferredLanguage(
+					function (language) {alert('language: ' + language.value + '\n');},
+					function () {alert('Error getting language\n');}
+				  );
+				}
+				
+				function checkPattern() {
+				  navigator.globalization.getCurrencyPattern(
+					'USD',
+					function (pattern) {alert('pattern: ' + pattern.pattern + '\n' +
+											  'code: ' + pattern.code + '\n' +
+											  'fraction: ' + pattern.fraction + '\n' +
+											  'rounding: ' + pattern.rounding + '\n' +
+											  'decimal: ' + pattern.decimal + '\n' +
+											  'grouping: ' + pattern.grouping);},
+					function () {alert('Error getting pattern\n');}
+				  );
+				}
 			</script>
 		
 			<div data-role="header">
@@ -20,7 +40,9 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<button onclick="checkLanguage()" data-role="button">Click for language</button>
+				<br />
+				<button onclick="checkPattern()" data-role="button">Click for pattern</button>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

@@ -34,15 +34,15 @@
 				}
 				
 				function gotFSCreate(fileSystem) {
-					var fileName = "readme.txt";
+					var fileName = $("#txtFileName").val();
 					$("#fileResult").append("<span class='success'>gotFSCreate success</span><br />");
-					fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+					fileSystem.root.getFile(fileName, {create: true, exclusive: false}, gotFileEntry, fail);
 				}
 				
 				function gotFS(fileSystem) {
-					var fileName = "readme.txt";
+					var fileName = $("#txtFileName").val();
 					$("#fileResult").append("<span class='success'>gotFS success</span><br />");
-					fileSystem.root.getFile("readme.txt", null, gotFileEntry, fail);
+					fileSystem.root.getFile(fileName, null, gotFileEntry, fail);
 				}
 
 				function gotFileEntry(fileEntry) {
@@ -60,7 +60,7 @@
 					var reader = new FileReader();
 					reader.onloadend = function(evt) {
 						$("#fileResult").append("Read as data URL<br />");
-						$("#fileResult").append(evt.target.result);
+						$("#fileResult").append(evt.target.result + "<br />");
 					};
 					reader.readAsDataURL(file);
 				}
@@ -69,7 +69,7 @@
 					var reader = new FileReader();
 					reader.onloadend = function(evt) {
 						$("#fileResult").append("Read as text<br />");
-						$("#fileResult").append(evt.target.result);
+						$("#fileResult").append(evt.target.result + "<br />");
 					};
 					reader.readAsText(file);
 				}

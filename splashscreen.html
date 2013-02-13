@@ -11,8 +11,18 @@
 		<div data-role="page" id="pageSplashscreen" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
 				$("#pageSplashscreen").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					$("#btnShowSplashscreen").off('click').on('click', showSplashscreen);
 				});
+				
+				function showSplashscreen() {
+					navigator.splashscreen.show();
+					
+					setTimeout(hidSplashscreen, 2000);
+				}
+				
+				function hidSplashscreen() {
+					navigator.splashscreen.hide();
+				}
 			</script>
 		
 			<div data-role="header">
@@ -20,7 +30,7 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<button id="btnShowSplashscreen">Show Splashscreen (2 sec)</div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

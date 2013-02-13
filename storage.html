@@ -10,9 +10,54 @@
 
 		<div data-role="page" id="pageStorage" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
+				//http://docs.phonegap.com/en/2.3.0/cordova_storage_storage.md.html#Storage
+				var db;
+				
 				$("#pageStorage").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					//window.openDatabase(database_name, database_version, database_displayname, database_size);					
+					db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+					db.transaction(populateDB, errorCB, successCB);
+					
+					$("#btnQueryDb").off('click').on('click', queryDatabase);
 				});
+												
+				function populateDB(tx) {
+					 tx.executeSql('DROP TABLE IF EXISTS DEMO');
+					 tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
+					 tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
+					 tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+				}
+
+				function successCB() {
+					$("#dbResults").append("<span class='success'>DB Created Success!</span><br />");
+				}
+				
+				function changeDbVersion() {
+					db.changeVersion("1.0", "1.1");
+				}
+				
+				function queryDatabase() {
+					db.transaction(queryDB, errorCB);
+				}
+				
+				function queryDB(tx) {
+					tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);
+				}
+				
+				function querySuccess(tx, results) {
+					$("#dbResults").append("Returned rows = " + results.rows.length + "<br />");
+					// this will be true since it was a select statement and so rowsAffected was 0
+					if (!resultSet.rowsAffected) {
+					  $("#dbResults").append('No rows affected!<br />');
+					  return false;
+					}
+					// for an insert statement, this property will return the ID of the last inserted row
+					$("#dbResults").append("Last inserted row ID = " + results.insertId = "<br />");
+				}
+
+				function errorCB(err) {
+					$("#dbResults").append("<span class='error'>Error processing SQL: "+err.code+"</span><br />");
+				}
 			</script>
 		
 			<div data-role="header">
@@ -20,7 +65,7 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<div id="dbResults"></div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

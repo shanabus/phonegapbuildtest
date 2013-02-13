@@ -19,7 +19,7 @@
     <preference name="orientation"      value="portrait" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
-	<preference name="splash-screen-duration" value="100" />
+	<preference name="splash-screen-duration" value="1000" />
 
     <icon src="icon.png" />
     <!--<icon src="res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:density="ldpi" />
@@ -52,14 +52,17 @@
 	<gap:plugin name="Capture" value="org.apache.cordova.Capture"/>
 	<gap:plugin name="Compass" value="org.apache.cordova.CompassListener" />
 	<gap:plugin name="Contacts" value="org.apache.cordova.ContactManager" />
-	<gap:plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager" />
-	<gap:plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
+	<gap:plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager" />	
 	<gap:plugin name="Battery" value="org.apache.cordova.BatteryListener" />
 	<gap:plugin name="File" value="org.apache.cordova.FileUtils" />
 	<gap:plugin name="FileTransfer" value="org.apache.cordova.FileTransfer" />
+	<gap:plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
+	<gap:plugin name="Globalization" value="org.apache.cordova.Globalization" />
 	
 	<gap:plugin name="Notification" value="org.apache.cordova.Notification"/>
-
+	<gap:plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
+	<gap:plugin name="Storage" value="org.apache.cordova.Storage" />
+	
 	<access origin="*" />
 
 
