@@ -17,6 +17,11 @@
 					document.addEventListener("pause", onPause, false);
 					document.addEventListener("resume", onResume, false);
 					document.addEventListener("online", onOnline, false);
+					document.addEventListener("offline", onOffline, false);					
+					document.addEventListener("backbutton", onBackKeyDown, false);
+					
+					window.addEventListener("batterycritical", onBatteryCritical, false);
+					window.addEventListener("batterylow", onBatteryLow, false);
 					
 					document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
 					document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
@@ -34,6 +39,36 @@
 				function onOnline() {
 					$("#eventMessage").html("You just got online!");
 				}
+				
+				// Handle the offline event
+				//
+				function onOffline() {
+					$("#eventMessage").html("You are now offline");
+				}
+				
+				// Handle the back button
+				//
+				function onBackKeyDown() {
+					$("#eventMessage").html("Back button was pressed");
+				}
+				
+				// Handle the batterycritical event
+				//
+				function onBatteryCritical(info) {
+					$("#batteryMessage").html("<span style='color:red;'>Battery Level Critical " + info.level + " - Recharge Soon!</span>");
+				}
+				
+				// Handle the batterylow event
+				//
+				function onBatteryLow(info) {
+					$("#batteryMessage").html("Battery Level Low " + info.level + "%"); 
+				}
+
+				// Handle the batterystatus event
+				//
+				function onBatteryStatus(info) {
+					$("#batteryMessage").html("Level: " + info.level + " isPlugged: " + info.isPlugged); 
+				}
 
 				// Handle the volume down button
 				//
@@ -49,14 +84,20 @@
 
 			</script>
 		
-			<div data-role="header">
+			<div data-role="header" data-add-back-btn="true">
 				<h1>Events</h1>
 			</div><!-- /header -->
 
-			<div data-role="content">	
+			<div data-role="content">
+				<label>System Events:</label>
+				<br />
 				<div id="eventMessage"></div>
+				<br />
+				<label>Battery Events:</label>
+				<br />
+				<div id="batteryMessage"></div>
 			</div><!-- /content -->
-
+					
 		</div><!-- /page -->
     				
     </body>
