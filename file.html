@@ -13,11 +13,17 @@
 				//http://docs.phonegap.com/en/2.3.0/cordova_file_file.md.html#File
 			
 				$("#pageFile").bind('pageshow', function() {
-					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+					$("#btnGetFile").off('click').on("click", funciton() { getFile(); });					
 				});
 				
+				function getFile() {
+					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+				}
+				
 				function gotFS(fileSystem) {
-					fileSystem.root.getFile("readme.txt", null, gotFileEntry, fail);
+					var fileName = "readme.txt";
+					$("#fileResult").append("Looking for: " + fileName);
+					fileSystem.root.getFile(fileName, null, gotFileEntry, fail);
 				}
 
 				function gotFileEntry(fileEntry) {
@@ -57,6 +63,7 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
+				<a href="" data-role="button" id="btnGetFile">Get File</a>
 				<div id="fileResult"></div>
 			</div><!-- /content -->
 
