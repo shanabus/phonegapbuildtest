@@ -67,19 +67,19 @@
 				// Handle the batterycritical event
 				//
 				function onBatteryCritical(info) {
-					$("#batteryMessage").append("<span style='color:red;'>Battery Level Critical " + info.level + " - Recharge Soon!</span><br />");
+					$("#eventMessage").append("<span class='error'>Battery Level Critical " + info.level + " - Recharge Soon!</span><br />");
 				}
 				
 				// Handle the batterylow event
 				//
 				function onBatteryLow(info) {
-					$("#batteryMessage").append("Battery Level Low " + info.level + "%<br />"); 
+					$("#eventMessage").append("<span class='warn'>Battery Level Low " + info.level + "%</span><br />"); 
 				}
 
 				// Handle the batterystatus event
 				//
 				function onBatteryStatus(info) {
-					$("#batteryMessage").append("Level: " + info.level + " isPlugged: " + info.isPlugged + "<br />"); 
+					$("#eventMessage").append("<span class='success'>Level: " + info.level + " isPlugged: " + info.isPlugged + "</span><br />"); 
 				}
 				
 				// Handle the menu button
@@ -97,13 +97,13 @@
 				// Handle the start call button
 				//
 				function onStartCallKeyDown() {
-					$("#eventMessage").append("Call started<br />");
+					$("#eventMessage").append("<span class='success'>Call started</span><br />");
 				}
 				
 				// Handle the end call button
 				//
 				function onEndCallKeyDown() {
-					$("#eventMessage").append("Call ended<br />");
+					$("#eventMessage").append("<span class='error'>Call ended</span><br />");
 				}
 	
 				// Handle the volume down button
@@ -125,19 +125,9 @@
 			</div><!-- /header -->
 
 			<div data-role="content">
-				<div class="ui-grid-a">
-					<div class="ui-block-a">
-						<label>System Events:</label>
-						<br />
-						<div id="eventMessage"></div>
-					</div>
-					<div class="ui-block-b">
-						<label>Battery Events:</label>
-						<br />
-						<div id="batteryMessage"></div>
-					</div>
-				</div><!-- /grid-a -->							
-				
+				<label>System Events:</label>
+				<br />
+				<div id="eventMessage"></div>																					
 			</div><!-- /content -->
 					
 		</div><!-- /page -->
