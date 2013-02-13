@@ -26,6 +26,9 @@
 					
 					document.addEventListener("menubutton", onMenuKeyDown, false);
 					document.addEventListener("searchbutton", onSearchKeyDown, false);
+					document.addEventListener("startcallbutton", onStartCallKeyDown, false);
+					document.addEventListener("endcallbutton", onEndCallKeyDown, false);
+					
 					document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
 					document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
 					
@@ -90,7 +93,19 @@
 				function onSearchKeyDown() {
 					$("#eventMessage").append("Search button Pressed<br />");
 				}
-
+				
+				// Handle the start call button
+				//
+				function onStartCallKeyDown() {
+					$("#eventMessage").append("Call started<br />");
+				}
+				
+				// Handle the end call button
+				//
+				function onEndCallKeyDown() {
+					$("#eventMessage").append("Call ended<br />");
+				}
+	
 				// Handle the volume down button
 				//
 				function onVolumeDownKeyDown() {
