@@ -18,24 +18,28 @@
 				//http://docs.phonegap.com/en/2.3.0/cordova_file_file.md.html#File
 			
 				$("#pageFile").bind('pageshow', function() {
+					$("#fileResult").html("");
 					$("#btnGetFile").off("click").on("click", getFile);					
 				});
 				
 				function getFile() {
+					$("#fileResult").append("Looking for: readme.txt<br />");
 					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
 				}
 				
 				function gotFS(fileSystem) {
 					var fileName = "readme.txt";
-					//$("#fileResult").append("Looking for: " + fileName);
+					$("#fileResult").append("gotFS success<br />");
 					fileSystem.root.getFile(fileName, null, gotFileEntry, fail);
 				}
 
 				function gotFileEntry(fileEntry) {
+					$("#fileResult").append("gotFileEntry success<br />");
 					fileEntry.file(gotFile, fail);
 				}
 
 				function gotFile(file){
+					$("#fileResult").append("gotFile success<br />");
 					readDataUrl(file);
 					readAsText(file);
 				}
