@@ -20,7 +20,6 @@
 					var addresses = [];
 					var ims = [];
 					var organizations = [];
-					var birthday = new date();
 					var note = "";
 					var photos = [];
 					var categories = [];
@@ -35,16 +34,17 @@
 					name.familyName = $("#familyName").val();
 					contact.name = name;
 
+					contact.birthday = new Date( $("#birthday").val() );
 					// save to device
 					contact.save(onSuccess, onError);
 				}
 				
 				function onSuccess(contact) {
-					alert("Save Success");
+					$("#contactResults").html("<span class='success'>Save Success</span>");
 				};
 
 				function onError(contactError) {
-					alert("Error = " + contactError.code);
+					$("#contactResults").append("<span class='error'>Error = " + contactError.code = "</span>");
 				};
 			</script>
 		
@@ -53,18 +53,26 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div data-role="fieldcontain">
-					<label for="givenName">First Name:</label>
-					<input type="text" name="givenName" id="givenName" value=""  />
-				</div>	
-				<div data-role="fieldcontain">
-					<label for="familyName">Last Name:</label>
-					<input type="text" name="familyName" id="familyName" value=""  />
-				</div>
-				<div data-role="fieldcontain">
-					<label for="nickname">Nickname:</label>
-					<input type="text" name="nickname" id="nickname" value=""  />
-				</div>				
+				<form>
+					<div data-role="fieldcontain">
+						<label for="givenName">First Name:</label>
+						<input type="text" name="givenName" id="givenName" value=""  />
+					</div>	
+					<div data-role="fieldcontain">
+						<label for="familyName">Last Name:</label>
+						<input type="text" name="familyName" id="familyName" value=""  />
+					</div>
+					<div data-role="fieldcontain">
+						<label for="nickname">Nickname:</label>
+						<input type="text" name="nickname" id="nickname" value=""  />
+					</div>	
+					<div data-role="fieldcontain">
+						<label for="birthday">Birthday:</label>
+						<input type="date" name="birthday" id="birthday" value=""  />
+					</div>		
+					<button id="btnCreateContact" data-role="button">Create Contact</button>
+				</form>				
+				<div id="contactResults"></div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

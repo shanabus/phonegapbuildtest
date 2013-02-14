@@ -11,31 +11,39 @@
 		<script src="js/jquery.mobile.1.2.min.js"></script>        
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 		<script type="text/javascript" charset="utf-8" src="barcodescanner.js"></script>
+		<script src="GAPlugin.js"></script>
+		<script src="PushNotification.js"></script>
 		
 		<script type="text/javascript" charset="utf-8">
 						
 			//var baseUrl = 'http://grappsmobile.com/grtv/';
 			
 			$(function() {
-				
+				// on exit
+				// gaPlugin.exit(nativePluginResultHandler, nativePluginErrorHandler);
 			});
-				
+			
+			var gaPlugin;
 			document.addEventListener("deviceready", myDeviceReadyListener, false);
 			
-			function myDeviceReadyListener() {
-				 //console.log("Entering index.html.onDeviceReady");
-				
-				 //var html = "";
-				 //html = html + "<li>" + 'Device Name: ' + device.name + "</li>";
-				 //html = html + "<li>" + 'Device Cordova: ' + device.cordova + "</li>";
-				 //html = html + "<li>" + 'Device Platform: ' + device.platform + "</li>";
-				 //html = html + "<li>" + 'Device UUID: ' + device.uuid + "</li>";
-				 //onsole.log(html);
-
-				 //$("#deviceProperties").html(html);
-				 //$("#deviceProperties").listview('refresh');
-				 //console.log("Exiting index.html.onDeviceReady");
+			function myDeviceReadyListener() {			
+				gaPlugin = window.plugins.gaPlugin;
+				gaPlugin.init(gaSuccess, gaError, "UA-23823097-3", 10);
 			} 
+			
+			function gaSuccess() {
+				gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, "http://grappsmobile.com/kitchensink/index.html");
+			}
+			
+			function gaError() {
+			
+			}
+			
+			function nativePluginResultHandler() {
+			}
+			
+			function nativePluginErrorHandler() {
+			}
 		</script>
 		
     </head>
@@ -47,7 +55,6 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="deviceProperties">&nbsp;</div>
 				<h2>Base APIs</h2>
 				<ul data-role="listview" data-inset="true">
 					<li><a href="accelerometer.html">Accelerometer</a></li>
