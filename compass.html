@@ -34,11 +34,11 @@
 				});
 				
 				function rotate(degree) {
-					var $needle = $("#needle");
+					//var $needle = $("#needle");
 					// For webkit browsers: e.g. Chrome
-				    $needle.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
+				    //$needle.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
 				    // For Mozilla browser: e.g. Firefox
-				    $needle.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
+				    //$needle.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
 					
 					var $compass = $("#compass");
 					// For webkit browsers: e.g. Chrome
@@ -96,12 +96,12 @@
 				<br />
 				<label>True Heading:</label><span id="trueHeading"></span>
 				<br />
-				<div style="position:relative;width: 100%; height: 140px;">
+				<!--<div style="position:relative;width: 100%; height: 140px;">
 					<div id="needle" style="display: block; width: 20px; height: 140px; background-color: #ddd; position: absolute; left: 50%;"><div style="color: #fff; background-color: red;">&nbsp;N</div></div>
-				</div>
+				</div>-->
 				
-				<div style="position:relative;width: 100%; height: 200px;">
-					<div id="compass" style="display: block; width: 200px; height: 200px; background-color: #ddd; position: absolute; left: 50%;">
+				<div style="position:relative;width: 100%; height: 260px;">
+					<div id="compass" style="display: block; width: 200px; height: 200px; background-color: transparent; position: absolute; left: 50%;">
 						<img src="images/compass.png" width="200" height="200" />
 					</div>
 				</div>
