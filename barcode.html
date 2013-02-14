@@ -25,6 +25,8 @@
 							$("#scanResults").append("Result: " + result.text + "<br />");
 							$("#scanResults").append("Format: " + result.format + "<br />");
 							$("#scanResults").append("Cancelled: " + result.cancelled);
+							
+							$("#txtEncode").val(result.text);
 						}, 
 						function(error) {
 							$("#scanResults").html("<span class='error'>Scanning failed: " + error = "</span>");

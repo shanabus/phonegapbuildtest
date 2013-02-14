@@ -34,17 +34,25 @@
 			} 
 			
 			function gaSuccess() {
-				gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, "http://grappsmobile.com/kitchensink/index.html");
+				try
+				{
+					gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, "http://grappsmobile.com/kitchensink/index.html");
+					$("#gaResults").html("<span class='success'>GA tracked pageview!</span>");
+				} catch (e) {
+					$("#gaResults").html("<span class='error'>GA could not track pageview - " + e + "</span>");
+				}
 			}
 			
 			function gaError() {
-			
+				$("#gaResults").append("<span class='error'>GA error</span>");
 			}
 			
 			function nativePluginResultHandler() {
+				$("#gaResults").append("<span class='warn'>GA Plugin Result</span>");
 			}
 			
 			function nativePluginErrorHandler() {
+				$("#gaResults").append("<span class='error'>GA Plugin Error Result</span>");
 			}
 		</script>
 		
@@ -81,6 +89,7 @@
 					<li><a href="barcode.html">Barcode Scanner</a></li>
 					<li><a href="google_analytics.html">Google Analytics</a></li>
 				</ul>
+				<div id="gaResults"></div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

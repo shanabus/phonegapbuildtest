@@ -10,8 +10,10 @@
 		
 		<div data-role="page" id="pageContactsCreate" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
+				//http://docs.phonegap.com/en/2.3.0/cordova_contacts_contacts.md.html#Contact
+				
 				$("#pageContactsCreate").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					$("#btnCreateContact").off("click").on("click", createContact);
 				});
 				
 				function createContact() {					
@@ -19,8 +21,7 @@
 					var phoneNumbers = [];
 					var addresses = [];
 					var ims = [];
-					var organizations = [];
-					var note = "";
+					var organizations = [];					
 					var photos = [];
 					var categories = [];
 					var urls = [];
@@ -35,6 +36,8 @@
 					contact.name = name;
 
 					contact.birthday = new Date( $("#birthday").val() );
+					contact.note = "created by the Phonegap Kitchen Sink";
+					
 					// save to device
 					contact.save(onSuccess, onError);
 				}

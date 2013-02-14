@@ -36,10 +36,10 @@
 				}
 				
 				function accelerometerSuccess(acceleration) {
-					$("#xAccel").text(acceleration.x);
-					$("#yAccel").text(acceleration.y);
-					$("#zAccel").text(acceleration.z); 
-					$("#timeStamp").text(acceleration.timestamp);					
+					$("#xAccel").text("x - " + acceleration.x);
+					$("#yAccel").text("y - " + acceleration.y);
+					$("#zAccel").text("x - " + acceleration.z); 
+					$("#timeStamp").text("time - " + acceleration.timestamp);					
 				};
 
 				function accelerometerError() {

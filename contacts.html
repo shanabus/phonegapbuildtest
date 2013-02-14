@@ -23,72 +23,14 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<ul data-role="listview">
-					<li><a href="contacts_create.html">Create</a></li>
-					<li><a href="contacts_find.html">Find</a></li>
-				</ul>
-			</div><!-- /content -->
-
-		</div><!-- /page -->
-		
-		<div data-role="page" id="pageContactsCreate" data-cache="never">
-			<script type="text/javascript" charset="utf-8">
-				$("#pageContactsCreate").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
-				});
-			</script>
-		
-			<div data-role="header">
-				<h1>Contacts Create</h1>
-			</div><!-- /header -->
-
-			<div data-role="content">	
-				<div id="currentHeading"></div>
-			</div><!-- /content -->
-
-		</div><!-- /page -->
-		
-		<div data-role="page" id="pageContactsFind" data-cache="never">
-			<script type="text/javascript" charset="utf-8">
-				$("#pageContactsFind").bind('pageshow', function() {
-					$("#btnFind").off('click').on("click", function() {
-						$("#contactsFindResult").html("");
-						searchContacts();
-					});
-				});				
 				
-				function searchContacts() {
-					var options = new ContactFindOptions();
-					options.filter= $("#txtContactName").val(); 
-					var fields = ["displayName", "name"];
-					navigator.contacts.find(fields, onSuccess, onError, options);
-				}
+				<a href="contacts_create.html" data-icon="plus">Create</a>
+				<br />
+				<a href="contacts_find.html" data-icon="edit" data-theme="b">Find</a>
 				
-				// onSuccess: Get a snapshot of the current contacts
-				//
-				function onSuccess(contacts) {
-					for (var i=0; i<contacts.length; i++) {
-						$("#contactsFindResult").append("<p>Display Name = " + contacts[i].displayName + "</p>");
-					}
-				}
-
-				// onError: Failed to get the contacts
-				//
-				function onError(contactError) {
-					alert('onError!');
-				}
-			</script>
-		
-			<div data-role="header">
-				<h1>Contacts Find</h1>
-			</div><!-- /header -->
-
-			<div data-role="content">	
-				<input type="text" id="txtContactName" /> <a data-role="button" id="btnFind">Find</a>
-				<div id="contactsFindResult"></div>
 			</div><!-- /content -->
 
-		</div><!-- /page -->
+		</div><!-- /page -->		
     				
     </body>
 </html>

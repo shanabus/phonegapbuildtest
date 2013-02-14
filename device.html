@@ -18,7 +18,7 @@
 				
 				function deviceInformation() {					
 					if (device == undefined) {
-						$("#deviceProperties thead th").html("could not load device");
+						$("#deviceProperties thead th").html("<span class='warn'>Could not load device</span>");
 						if (window.device != undefined) {
 							$("#deviceProperties thead th").append("<br />try window.device instead");
 						}

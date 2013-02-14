@@ -29,7 +29,7 @@
 				function onSuccess(contacts) {
 					$("#contactsFindResult").html("");
 					for (var i=0; i<contacts.length; i++) {
-						$("#contactsFindResult").append("Display Name = " + contacts[i].displayName + "<br />");
+						$("#contactsFindResult").append("Name = " + contacts[i].displayName + "<br />");
 					}
 					
 					if (contacts.length == 0) {
