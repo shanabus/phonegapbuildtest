@@ -47,8 +47,11 @@
 				$("#gaResults").append("<span class='error'>GA error</span>");
 			}
 			
-			function nativePluginResultHandler() {
-				$("#gaResults").append("<span class='warn'>GA Plugin Result</span>");
+			function nativePluginResultHandler(obj) {
+				$("#gaResults").append("<br /><span class='warn'>GA Plugin Result</span>");
+				if (obj != undefined) {
+					$("#gaResults").append("<br /><span class='warn'>obj = " + obj + "</span>");
+				}
 			}
 			
 			function nativePluginErrorHandler() {
