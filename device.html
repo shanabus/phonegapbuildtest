@@ -10,9 +10,20 @@
 
 		<div data-role="page" id="pageDevice" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
+				//http://docs.phonegap.com/en/2.3.0/cordova_device_device.md.html#Device
+				
 				$("#pageDevice").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					deviceInformation();
 				});
+				
+				function deviceInformation() {
+					$('#deviceProperties').html('Device Name: '     + device.name     + '<br />' + 
+										'Device Cordova: '  + device.cordova  + '<br />' + 
+										'Device Platform: ' + device.platform + '<br />' + 
+										'Device UUID: '     + device.uuid     + '<br />' + 
+										'Device Model: '    + device.model     + '<br />' + 
+										'Device Version: '  + device.version  + '<br />');
+				}
 			</script>
 		
 			<div data-role="header">
@@ -20,7 +31,7 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<div id="deviceProperties"></div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->
