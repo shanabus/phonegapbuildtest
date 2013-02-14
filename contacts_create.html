@@ -14,10 +14,8 @@
 					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
 				});
 				
-				function createContact() {
-					var displayName = $("#displayName").val();
-					var name = ""; //formatted: familyName: givenName: middleName: honorificPrefix: honorificSuffix:
-					var nickname = "";
+				function createContact() {					
+				
 					var phoneNumbers = [];
 					var addresses = [];
 					var ims = [];
@@ -30,15 +28,15 @@
 					
 					// create a new contact object
 					var contact = navigator.contacts.create();
-					contact.displayName = "Plumber";
-					contact.nickname = "Plumber";       //specify both to support all devices
+					contact.displayName = $("#nickname").val();
+					contact.nickname = $("#nickname").val();       //specify both to support all devices
 					var name = new ContactName();
-					name.givenName = "Jane";
-					name.familyName = "Doe";
+					name.givenName = $("#givenName").val();
+					name.familyName = $("#familyName").val();
 					contact.name = name;
 
 					// save to device
-					contact.save(onSuccess,onError);
+					contact.save(onSuccess, onError);
 				}
 				
 				function onSuccess(contact) {
@@ -55,7 +53,18 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<div data-role="fieldcontain">
+					<label for="givenName">First Name:</label>
+					<input type="text" name="givenName" id="givenName" value=""  />
+				</div>	
+				<div data-role="fieldcontain">
+					<label for="familyName">Last Name:</label>
+					<input type="text" name="familyName" id="familyName" value=""  />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="nickname">Nickname:</label>
+					<input type="text" name="nickname" id="nickname" value=""  />
+				</div>				
 			</div><!-- /content -->
 
 		</div><!-- /page -->
