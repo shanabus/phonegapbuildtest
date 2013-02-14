@@ -15,6 +15,9 @@
 						$("#contactsFindResult").html("");
 						searchContacts();
 					});
+					$("#txtContactName").off('keyup').on('keyup', function() {
+						searchContacts();
+					});
 				});				
 				
 				function searchContacts() {
@@ -44,7 +47,9 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<input type="text" id="txtContactName" /> <a data-role="button" id="btnFind">Find</a>
+				<label for="search-basic">Search Input:</label>
+				<input type="search" name="search" id="txtContactName" value="" />
+				<a data-role="button" id="btnFind">Find</a>
 				<div id="contactsFindResult"></div>
 			</div><!-- /content -->
 

@@ -13,6 +13,41 @@
 				$("#pageContactsCreate").bind('pageshow', function() {
 					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
 				});
+				
+				function createContact() {
+					var displayName = $("#displayName").val();
+					var name = ""; //formatted: familyName: givenName: middleName: honorificPrefix: honorificSuffix:
+					var nickname = "";
+					var phoneNumbers = [];
+					var addresses = [];
+					var ims = [];
+					var organizations = [];
+					var birthday = new date();
+					var note = "";
+					var photos = [];
+					var categories = [];
+					var urls = [];
+					
+					// create a new contact object
+					var contact = navigator.contacts.create();
+					contact.displayName = "Plumber";
+					contact.nickname = "Plumber";       //specify both to support all devices
+					var name = new ContactName();
+					name.givenName = "Jane";
+					name.familyName = "Doe";
+					contact.name = name;
+
+					// save to device
+					contact.save(onSuccess,onError);
+				}
+				
+				function onSuccess(contact) {
+					alert("Save Success");
+				};
+
+				function onError(contactError) {
+					alert("Error = " + contactError.code);
+				};
 			</script>
 		
 			<div data-role="header">

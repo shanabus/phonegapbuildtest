@@ -16,14 +16,24 @@
 					deviceInformation();
 				});
 				
-				function deviceInformation() {
-					$('#deviceProperties').html('Device Name: '     + device.name     + '<br />' + 
-										'Device Cordova: '  + device.cordova  + '<br />' + 
-										'Device Platform: ' + device.platform + '<br />' + 
-										'Device UUID: '     + device.uuid     + '<br />' + 
-										'Device Model: '    + device.model     + '<br />' + 
-										'Device Version: '  + device.version  + '<br />');
+				function deviceInformation() {					
+					if (device == undefined) {
+						$("#deviceProperties thead th").html("could not load device");
+						if (window.device != undefined) {
+							$("#deviceProperties thead th").append("<br />try window.device instead");
+						}
+					} 
+					else 
+					{
+						$('#deviceProperties tbody').append('<tr><td>Device Name: </td><td>' 	 + device.name + '</td></tr>');
+						$('#deviceProperties tbody').append('<tr><td>Device Cordova: </td><td>'  + device.cordova  + '</td></tr>');
+						$('#deviceProperties tbody').append('<tr><td>Device Platform: </td><td>' + device.platform + '</td></tr>');
+						$('#deviceProperties tbody').append('<tr><td>Device UUID: </td><td>'     + device.uuid     + '</td></tr>');
+						$('#deviceProperties tbody').append('<tr><td>Device Model: </td><td>'    + device.model     + '</td></tr>');
+						$('#deviceProperties tbody').append('<tr><td>Device Version: </td><td>'  + device.version  + '</td></tr>');
+					}
 				}
+				
 			</script>
 		
 			<div data-role="header">
@@ -31,7 +41,12 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="deviceProperties"></div>
+				<table id="deviceProperties">
+					<thead>
+						<tr><th colspan="2">Device Properties</th></tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 			</div><!-- /content -->
 
 		</div><!-- /page -->
