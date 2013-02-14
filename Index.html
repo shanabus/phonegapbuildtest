@@ -36,8 +36,11 @@
 			function gaSuccess() {
 				try
 				{
-					gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, "http://grappsmobile.com/kitchensink/index.html");
+					gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, "index.html");
 					$("#gaResults").html("<span class='success'>GA tracked pageview!</span>");
+					$("#pageHome ul li a").on("click", function() {
+						gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, $(this).attr("href") );
+					});
 				} catch (e) {
 					$("#gaResults").html("<span class='error'>GA could not track pageview - " + e + "</span>");
 				}
