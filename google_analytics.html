@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PGB Kitchen Sink</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+
+		<div data-role="page" id="pageGoogleAnalytics" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				//https://build.phonegap.com/docs/plugins
+				//https://github.com/bobeast/GAPlugin/blob/master/README.md
+				
+				$("#pageGoogleAnalytics").bind('pageshow', function() {
+					if (gaPlugin == undefined) {
+						$("#analyticsResults").html("<span class='error'>GA Plugin is undefined</span>");
+					} else {
+						try {
+							gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Button", "Click", "event only", 1);
+							$("#analyticsResults").html("<span class='success'>GA tracked event!</span>");
+						} catch (e) {
+							$("#analyticsResults").html("<span class='error'>GA Plugin error: " + e + "</span>");
+						}
+					}
+				});
+																	
+			</script>
+		
+			<div data-role="header">
+				<h1>Google Analytics</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">					
+				<div id="analyticsResults"></div>
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+    				
+    </body>
+</html>

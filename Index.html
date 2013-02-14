@@ -28,7 +28,9 @@
 			
 			function myDeviceReadyListener() {			
 				gaPlugin = window.plugins.gaPlugin;
-				gaPlugin.init(gaSuccess, gaError, "UA-23823097-3", 10);
+				gaPlugin.init(gaSuccess, gaError, "UA-23823097-4", 10);
+				//23823097-4 <-- web property
+				//23823097-3 <-- app property
 			} 
 			
 			function gaSuccess() {
@@ -77,6 +79,7 @@
 				<h2>Additional Plugins</h2>
 				<ul data-role="listview" data-inset="true">
 					<li><a href="barcode.html">Barcode Scanner</a></li>
+					<li><a href="google_analytics.html">Google Analytics</a></li>
 				</ul>
 			</div><!-- /content -->
 

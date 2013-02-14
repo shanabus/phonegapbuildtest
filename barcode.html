@@ -21,21 +21,24 @@
 				function scan() {
 					window.plugins.barcodeScanner.scan( 
 						function(result) { 
-							alert("We got a barcode\nResult: " + result.text + "\nFormat: " + result.format + "\nCancelled: " + result.cancelled);
+							$("#scanResults").html("<span class='success'>We got a barcode!</span><br />");
+							$("#scanResults").append("Result: " + result.text + "<br />");
+							$("#scanResults").append("Format: " + result.format + "<br />");
+							$("#scanResults").append("Cancelled: " + result.cancelled);
 						}, 
 						function(error) {
-							alert("Scanning failed: " + error);
+							$("#scanResults").html("<span class='error'>Scanning failed: " + error = "</span>");
 						}
 					);
 				}
 				
 				function encode() {
-					var msg = "gogetem";
+					var msg = $("#txtEncode").val();
 					window.plugins.barcodeScanner.encode(BarcodeScanner.Encode.TEXT_TYPE, msg, 
 					function(success) {
-						alert("encode success: " + success);
+						$("#scanResults").html("<span class='success'>Encode success: " + success + "</span>");
 					  }, function(fail) {
-						alert("encoding failed: " + fail);
+						$("#scanResults").html("<span class='error'>Encoding failed: " + fail = "</span>");
 					  }
 					);
 				}
@@ -47,8 +50,13 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<a id="btnScan" data-role="button">Scan Now</a>
-				<a id="btnEncode" data-role="button">Encode Now</a>
+				<div data-role="fieldcontain">
+					<a id="btnScan" data-role="button">Scan Now</a>
+				</div>
+				<div data-role="fieldcontain">
+					<input type="text" value="Kitchen Sink!" id="txtEncode" />
+					<a id="btnEncode" data-role="button">Encode Now</a>
+				</div>
 				<div id="scanResults"></div>
 			</div><!-- /content -->
 
