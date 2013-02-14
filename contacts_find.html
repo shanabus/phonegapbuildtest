@@ -11,18 +11,15 @@
 		<div data-role="page" id="pageContactsFind" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
 				$("#pageContactsFind").bind('pageshow', function() {
-					$("#btnFind").off('click').on("click", function() {
-						$("#contactsFindResult").html("");
-						searchContacts();
-					});
 					$("#txtContactName").off('keyup').on('keyup', function() {
 						searchContacts();
 					});
 				});				
 				
-				function searchContacts() {
+				function searchContacts() {					
 					var options = new ContactFindOptions();
-					options.filter= $("#txtContactName").val(); 
+					options.filter =   $("#txtContactName").val(); 
+					options.multiple = true; // false means only return a single result if any
 					var fields = ["displayName", "name"];
 					navigator.contacts.find(fields, onSuccess, onError, options);
 				}
@@ -30,8 +27,13 @@
 				// onSuccess: Get a snapshot of the current contacts
 				//
 				function onSuccess(contacts) {
+					$("#contactsFindResult").html("");
 					for (var i=0; i<contacts.length; i++) {
-						$("#contactsFindResult").append("<p>Display Name = " + contacts[i].displayName + "</p>");
+						$("#contactsFindResult").append("Display Name = " + contacts[i].displayName + "<br />");
+					}
+					
+					if (contacts.length == 0) {
+						$("#contactsFindResult").html("<em>no result found</em>");
 					}
 				}
 
@@ -49,7 +51,6 @@
 			<div data-role="content">	
 				<label for="search-basic">Search Input:</label>
 				<input type="search" name="search" id="txtContactName" value="" />
-				<a data-role="button" id="btnFind">Find</a>
 				<div id="contactsFindResult"></div>
 			</div><!-- /content -->
 

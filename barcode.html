@@ -14,29 +14,25 @@
 				//https://github.com/wildabeast/BarcodeScanner/blob/master/README.md
 				
 				$("#pageBarcode").bind('pageshow', function() {
-					$("#btnScan")off('click').on('click', function() {
-						scan();
-					});
-					$("#btnEncode")off('click').on('click', function() {
-						var msg = "http://google.com/";
-						encode(msg);
-					});
+					$("#btnScan").off('click').on('click', scan );
+					$("#btnEncode").off('click').on('click', encode );
 				});
 				
 				function scan() {
-					window.plugins.barcodeScanner.scan( function(result) {
-							alert("We got a barcode\n" +
-									  "Result: " + result.text + "\n" +
-									  "Format: " + result.format + "\n" +
-									  "Cancelled: " + result.cancelled);
-						}, function(error) {
+					window.plugins.barcodeScanner.scan( 
+						function(result) { 
+							alert("We got a barcode\nResult: " + result.text + "\nFormat: " + result.format + "\nCancelled: " + result.cancelled);
+						}, 
+						function(error) {
 							alert("Scanning failed: " + error);
 						}
 					);
 				}
 				
-				function encode(msg) {
-					window.plugins.barcodeScanner.encode(BarcodeScanner.Encode.TEXT_TYPE, msg, function(success) {
+				function encode() {
+					var msg = "gogetem";
+					window.plugins.barcodeScanner.encode(BarcodeScanner.Encode.TEXT_TYPE, msg, 
+					function(success) {
 						alert("encode success: " + success);
 					  }, function(fail) {
 						alert("encoding failed: " + fail);
@@ -51,8 +47,9 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<button id="btnScan" data-role="button">Scan Now</button>
-				<button id="btnEncode" data-role="button">Encode Now</button>
+				<a id="btnScan" data-role="button">Scan Now</a>
+				<a id="btnEncode" data-role="button">Encode Now</a>
+				<div id="scanResults"></div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->
