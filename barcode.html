@@ -8,11 +8,11 @@
     </head>
     <body>
 
-		<div data-role="page" id="pageDevice" data-cache="never">
+		<div data-role="page" id="pageBarcode" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
 				//https://build.phonegap.com/docs/plugins
 				
-				$("#pageDevice").bind('pageshow', function() {
+				$("#pageBarcode").bind('pageshow', function() {
 					$("btnScan")off('click').on('click', function() {
 						window.plugins.barcodeScanner.scan( function(result) {
 								alert("We got a barcode\n" +
@@ -23,13 +23,13 @@
 								alert("Scanning failed: " + error);
 							}
 						);
-					}
+					});
 				});
 												
 			</script>
 		
 			<div data-role="header">
-				<h1>Device</h1>
+				<h1>Barcode Scanner</h1>
 			</div><!-- /header -->
 
 			<div data-role="content">	
