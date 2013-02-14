@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PGB Kitchen Sink</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+
+		<div data-role="page" id="pageDevice" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				//https://build.phonegap.com/docs/plugins
+				
+				$("#pageDevice").bind('pageshow', function() {
+					$("btnScan")off('click').on('click', function() {
+						window.plugins.barcodeScanner.scan( function(result) {
+								alert("We got a barcode\n" +
+										  "Result: " + result.text + "\n" +
+										  "Format: " + result.format + "\n" +
+										  "Cancelled: " + result.cancelled);
+							}, function(error) {
+								alert("Scanning failed: " + error);
+							}
+						);
+					}
+				});
+												
+			</script>
+		
+			<div data-role="header">
+				<h1>Device</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">	
+				<button id="btnScan" data-role="button>Scan Now</button>
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+    				
+    </body>
+</html>

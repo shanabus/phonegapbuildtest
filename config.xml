@@ -64,6 +64,8 @@
 	<gap:plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
 	<gap:plugin name="Storage" value="org.apache.cordova.Storage" />
 	
+	<gap:plugin name="BarcodeScanner" /> <!-- latest release -->
+	
 	<access origin="*" />
 
 

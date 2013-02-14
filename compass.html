@@ -64,7 +64,7 @@
 					//alert('Heading: ' + heading.magneticHeading);
 					$("#magneticHeading").text(heading.magneticHeading);
 					$("#trueHeading").text(heading.trueHeading);
-					rotate(heading.magneticHeading)
+					rotate( Math.round(360 - heading.magneticHeading) );
 				};
 
 				function onError(error) {
