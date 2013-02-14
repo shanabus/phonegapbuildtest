@@ -22,7 +22,12 @@
 					window.plugins.barcodeScanner.scan( 
 						function(result) { 
 							$("#scanResults").html("<span class='success'>We got a barcode!</span><br />");
-							$("#scanResults").append("Result: " + result.text + "<br />");
+							
+							if (result.text.indexOf("http://") >= 0) {
+								$("#scanResults").append("Result: <a href='" + result.text + "'>" + result.text + "</a><br />");
+							} else {
+								$("#scanResults").append("Result: " + result.text + "<br />");
+							}
 							$("#scanResults").append("Format: " + result.format + "<br />");
 							$("#scanResults").append("Cancelled: " + result.cancelled);
 							
