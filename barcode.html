@@ -14,8 +14,18 @@
 				//https://github.com/wildabeast/BarcodeScanner/blob/master/README.md
 				
 				$("#pageBarcode").bind('pageshow', function() {
-					$("#btnScan").off('click').on('click', scan );
-					$("#btnEncode").off('click').on('click', encode );
+					$("#btnScan").off('click').on('click', function() {
+						scan();
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Barcode", "Scan", "Clicked", 1);
+					});
+					$("#btnEncode").off('click').on('click', function() {
+						encode();
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Barcode", "Encode", "Clicked", 1);
+					});
+					
+					$("#pageHome ul li a").off("click").on("click", function() {
+						gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, $(this).attr("href") );
+					});
 				});
 				
 				function scan() {
@@ -32,9 +42,12 @@
 							$("#scanResults").append("Cancelled: " + result.cancelled);
 							
 							$("#txtEncode").val(result.text);
+							
+							gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Barcode", "Scan", result.text, 1);
 						}, 
 						function(error) {
-							$("#scanResults").html("<span class='error'>Scanning failed: " + error = "</span>");
+							$("#scanResults").html("<span class='error'>Scanning failed: " + error + "</span>");
+							gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Barcode", "Scan", "Error: " + error, 1);
 						}
 					);
 				}
@@ -44,8 +57,10 @@
 					window.plugins.barcodeScanner.encode(BarcodeScanner.Encode.TEXT_TYPE, msg, 
 					function(success) {
 						$("#scanResults").html("<span class='success'>Encode success: " + success + "</span>");
-					  }, function(fail) {
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Barcode", "Encode", msg, 1);
+					  }, function(error) {
 						$("#scanResults").html("<span class='error'>Encoding failed: " + fail = "</span>");
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Barcode", "Encode", "Error: " + error, 1);
 					  }
 					);
 				}

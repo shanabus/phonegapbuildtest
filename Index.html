@@ -38,7 +38,7 @@
 				{
 					gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, "index.html");
 					$("#gaResults").html("<span class='success'>GA tracked pageview!</span>");
-					$("#pageHome ul li a").on("click", function() {
+					$("#pageHome ul li a").off("click").on("click", function() {
 						gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, $(this).attr("href") );
 					});
 				} catch (e) {
