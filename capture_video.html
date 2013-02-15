@@ -11,7 +11,7 @@
 		<div data-role="page" id="pageCaptureVideo" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
 				$("#pageCaptureVideo").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					
 				});
 				
 				// Called when capture operation is finished
@@ -28,6 +28,7 @@
 				function captureError(error) {
 					var msg = 'An error occurred during capture: ' + error.code;
 					navigator.notification.alert(msg, null, 'Uh oh!');
+					gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Capture", "Video", "Error: " + msg, 1);
 				}
 
 				// A button will call this function
@@ -44,6 +45,7 @@
 						path = mediaFile.fullPath,
 						name = mediaFile.name;
 					alert("could now use FileTransfer() to upload '" + name + "' from '" + path + "'");
+					gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Capture", "Video", "Success", 1);
 					//ft.upload(path,
 					//	"http://my.domain.com/upload.php",
 					//	function(result) {

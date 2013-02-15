@@ -44,10 +44,12 @@
 				
 				function onSuccess(contact) {
 					$("#contactResults").html("<span class='success'>Save Success</span>");
+					gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Contacts", "Create", "Success", 1);
 				};
 
 				function onError(contactError) {
 					$("#contactResults").append("<span class='error'>Error = " + contactError.code = "</span>");
+					gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Contacts", "Create", "Error: " +contactError.code, 1);
 				};
 			</script>
 		

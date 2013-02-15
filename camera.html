@@ -37,6 +37,8 @@
 				  // The inline CSS rules are used to resize the image
 				  //
 				  smallImage.src = "data:image/jpeg;base64," + imageData;
+				  
+					gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Camera", "Image", "Data Success", 1);
 				}
 
 				// Called when a photo is successfully retrieved
@@ -57,6 +59,8 @@
 				  // The inline CSS rules are used to resize the image
 				  //
 				  largeImage.src = imageURI;
+				  
+				  gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Camera", "Image", "URI Success", 1);
 				}
 
 				// A button will call this function
@@ -84,6 +88,7 @@
 				// 
 				function onFail(message) {
 				  alert('Failed because: ' + message);
+				  gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Camera", "Image", "Error: " + message, 1);
 				}
 			</script>
 		

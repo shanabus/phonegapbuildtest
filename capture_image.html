@@ -28,6 +28,7 @@
 				function captureError(error) {
 					var msg = 'An error occurred during capture: ' + error.code;
 					navigator.notification.alert(msg, null, 'Uh oh!');
+					gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Capture", "Image", "Error: " + msg, 1);
 				}
 
 				// A button will call this function
@@ -44,6 +45,7 @@
 						path = mediaFile.fullPath,
 						name = mediaFile.name;
 					alert("could now use FileTransfer() to upload '" + name + "' from '" + path + "'");
+					gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Capture", "Image", "Success", 1);
 					//ft.upload(path,
 					//	"http://my.domain.com/upload.php",
 					//	function(result) {
