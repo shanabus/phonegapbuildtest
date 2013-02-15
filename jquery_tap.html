@@ -16,6 +16,10 @@
 					$('.tap').off('tap').on('tap',function(event) {
 						$(this).find("div").toggle(); //  toggles the visibility/display of the element.
 					});
+					
+					$("#tapHold").off('taphold').on('taphold', function() {
+						$("#tapHold").find("p").html("What are you holding on to??");
+					});
 				});
 			</script>
 		
@@ -28,6 +32,10 @@
 					<div class="ui-block-a tap" style="border:1px solid #ddd; height: 40px;"><div><strong>I'm Block A</strong> and text inside will wrap</div></div>
 					<div class="ui-block-b tap" style="border:1px solid #ddd; height: 40px;"><div><strong>I'm Block B</strong> and text inside will wrap</div></div>
 				</div><!-- /grid-a -->
+				<br />
+				<div id="tapHold">
+					<p>I dare you to hold on to me</p>
+				</div>
 			</div><!-- /content -->
 			
 		</div> <!-- /page -->
