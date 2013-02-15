@@ -97,9 +97,63 @@
 					<li><a href="google_analytics.html">Google Analytics</a></li>
 				</ul>
 				<div id="gaResults" style="display:none;"></div>
+				<h2>jQuery Mobile Touch Events</h2>
+				<ul data-role="listview" data-inset="true">
+					<li><a href="#pageTap">Tap</a></li>
+					<li><a href="#pageSwipe">Swipe</a></li>
+				</ul>
+
 			</div><!-- /content -->
 
 		</div><!-- /page -->
-    				
+    	
+		<div data-role="page" id="pageTap" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				$("#pageTap").bind('pageshow', function() {
+					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					$('.tap').off('tap').on('tap',function(event) {
+						$(this).find("div").toggle(); //  toggles the visibility/display of the element.
+					});
+				});
+			</script>
+		
+			<div data-role="header">
+				<h1>jQuery Mobile Tap</h1>
+			</div><!-- /header -->
+			
+			<div data-role="content">
+				<div class="ui-grid-a">
+					<div class="ui-block-a tap"><div><strong>I'm Block A</strong> and text inside will wrap</div></div>
+					<div class="ui-block-b tap"><div><strong>I'm Block B</strong> and text inside will wrap</div></div>
+				</div><!-- /grid-a -->
+			</div><!-- /content -->
+			
+		</div> <!-- /page -->
+		
+		<div data-role="page" id="pageSwipe" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				$("#pageSwipe").bind('pageshow', function() {
+					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					$('.swipe').off('swiperight, swipeleft').on('swiperight',function(event) {
+						$(this).find("div").html("you swiped <strong>right</strong>!"); //  toggles the visibility/display of the element.
+					}).on(',swipeleft', function(event) {
+						$(this).find("div").html("you swiped <strong>left</strong>!");
+					});
+				});
+			</script>
+		
+			<div data-role="header">
+				<h1>jQuery Mobile Swipe</h1>
+			</div><!-- /header -->
+			
+			<div data-role="content">
+				<div class="ui-grid-a">
+					<div class="ui-block-a swipe"><div><strong>I'm Block A</strong> and text inside will wrap</div></div>
+					<div class="ui-block-b swipe"><div><strong>I'm Block B</strong> and text inside will wrap</div></div>
+				</div><!-- /grid-a -->
+			</div><!-- /content -->
+			
+		</div> <!-- /page -->
+		
     </body>
 </html>
