@@ -13,7 +13,9 @@
 				//http://docs.phonegap.com/en/2.3.0/cordova_contacts_contacts.md.html#contacts.find 
 				
 				$("#pageContacts").bind('pageshow', function() {
-					
+					$("#pageContacts a").off("click").on("click", function() {
+						gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, $(this).attr("href") );
+					});
 				});
 
 			</script>

@@ -21,10 +21,12 @@
 					$("#selCompass").off('change').on('change', function() {
 						if ($(this).val() == 'on') {
 							startWatch();
+							gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Compass", "Switch", "On", 1);
 						}
 						else
 						{
 							stopWatch();
+							gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Compass", "Switch", "Off", 1);
 						}
 					});
 				});
@@ -34,17 +36,6 @@
 				});
 				
 				function rotate(degree) {
-					//var $needle = $("#needle");
-					// For webkit browsers: e.g. Chrome
-				    //$needle.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
-				    // For Mozilla browser: e.g. Firefox
-				    //$needle.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
-					
-					//var $compass = $("#compass");
-					// For webkit browsers: e.g. Chrome
-				    //$compass.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
-				    // For Mozilla browser: e.g. Firefox
-				    //$compass.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
 					$('#compass').animate({  textIndent: 0 }, {
 							step: function(now,fx) {
 							  $(this).css('-webkit-transform','rotate(' + degree + 'deg)'); 
@@ -74,8 +65,8 @@
 	
 				function onSuccess(heading) {
 					//alert('Heading: ' + heading.magneticHeading);
-					$("#magneticHeading").text(heading.magneticHeading);
-					$("#trueHeading").text(heading.trueHeading);
+					$("#magneticHeading").text( parseFloat(heading.magneticHeading).toFixed(4));
+					$("#trueHeading").text( parseFloat(heading.trueHeading).toFixed(4));
 					rotate( Math.round(360 - heading.magneticHeading) );
 				};
 
@@ -98,15 +89,19 @@
 				</select>
 				<br />
 				
-				<label>Magnetic Heading:</label><span id="magneticHeading"></span>
-				<br />
-				<label>True Heading:</label><span id="trueHeading"></span>
-				<br />
+				<table>
+					<tr>
+						<td>Magnetic Heading:</td><td id="magneticHeading"></td>
+					</tr>
+					<tr>
+						<td>True Heading:</td><td id="trueHeading"></td>
+					</tr>
+				</table>
 				<!--<div style="position:relative;width: 100%; height: 140px;">
 					<div id="needle" style="display: block; width: 20px; height: 140px; background-color: #ddd; position: absolute; left: 50%;"><div style="color: #fff; background-color: red;">&nbsp;N</div></div>
 				</div>-->
 				
-				<div style="position:relative;width: 100%; height: 260px;">
+				<div style="position:relative;width: 100%; height: 260px; margin-top: 40px;">
 					<br />
 					<div id="compass" style="display: block; width: 200px; height: 200px; margin-left: auto; margin-right: auto; background-color: transparent; ">
 						<img src="images/compass.png" width="200" height="200" align="center" />
