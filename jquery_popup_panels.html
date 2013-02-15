@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PGB Kitchen Sink</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+
+		<div data-role="page" id="popupPanels" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				//http://jquerymobile.com/test/docs/pages/popup/popup-panels.html#&ui-state=dialog
+				
+				$("#popupPanels").bind('pageshow', function() {
+					$("#btnPopupPanel").off('click').on('click', function() {
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "jQuery Mobile", "Popup Panel", "Open", 1);
+					});
+				});
+			</script>
+			
+			<div data-role="header">
+				<h1>jQuery Mobile popupPanels</h1>
+			</div><!-- /header -->
+			
+			<div data-role="content">
+				<a href="#popupPanel" id="btnPopupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button">Open panel</a>				
+				<div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+					<button data-theme="a" data-icon="back" data-mini="true">Back</button>
+					<button data-theme="a" data-icon="grid" data-mini="true">Menu</button>
+					<button data-theme="a" data-icon="search" data-mini="true">Search</button>					 
+				</div>
+			</div><!-- /content -->
+			
+		</div> <!-- /page -->
+    				
+    </body>
+</html>

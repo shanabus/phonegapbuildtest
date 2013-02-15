@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PGB Kitchen Sink</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+
+		<div data-role="page" id="pageSwipe" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				//http://jquerymobile.com/test/docs/api/events.html
+				
+				$("#pageSwipe").bind('pageshow', function() {
+					$('.swipe').off('swiperight').on('swiperight',function(event) {
+						$(this).find("div").html("you swiped <strong>right</strong>!"); //  toggles the visibility/display of the element.
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "jQuery Mobile", "Swipe", "Right", 1);
+					});
+					$('.swipe').off('swipeleft').on('swipeleft', function(event) {
+						$(this).find("div").html("you swiped <strong>left</strong>!");
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "jQuery Mobile", "Swipe", "Left", 1);
+					});
+				});
+			</script>
+		
+			<div data-role="header">
+				<h1>jQuery Mobile Swipe</h1>
+			</div><!-- /header -->
+			
+			<div data-role="content">
+				<div class="ui-grid-a">
+					<div class="ui-block-a swipe"><div><strong>I'm Block A</strong> and text inside will wrap</div></div>
+					<div class="ui-block-b swipe"><div><strong>I'm Block B</strong> and text inside will wrap</div></div>
+				</div><!-- /grid-a -->
+			</div><!-- /content -->
+			
+		</div> <!-- /page -->
+    				
+    </body>
+</html>
