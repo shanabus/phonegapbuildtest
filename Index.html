@@ -101,6 +101,7 @@
 				<ul data-role="listview" data-inset="true">
 					<li><a href="#pageTap">Tap</a></li>
 					<li><a href="#pageSwipe">Swipe</a></li>
+					<li><a href="#popupPanels">Popup Panels</a></li>
 				</ul>
 
 			</div><!-- /content -->
@@ -123,8 +124,8 @@
 			
 			<div data-role="content">
 				<div class="ui-grid-a">
-					<div class="ui-block-a tap"><div><strong>I'm Block A</strong> and text inside will wrap</div></div>
-					<div class="ui-block-b tap"><div><strong>I'm Block B</strong> and text inside will wrap</div></div>
+					<div class="ui-block-a tap" style="border:1px solid #ddd;"><div><strong>I'm Block A</strong> and text inside will wrap</div></div>
+					<div class="ui-block-b tap" style="border:1px solid #ddd;"><div><strong>I'm Block B</strong> and text inside will wrap</div></div>
 				</div><!-- /grid-a -->
 			</div><!-- /content -->
 			
@@ -134,10 +135,13 @@
 			<script type="text/javascript" charset="utf-8">
 				$("#pageSwipe").bind('pageshow', function() {
 					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
-					$('.swipe').off('swiperight, swipeleft').on('swiperight',function(event) {
+					$('.swipe').off('swiperight').on('swiperight',function(event) {
 						$(this).find("div").html("you swiped <strong>right</strong>!"); //  toggles the visibility/display of the element.
-					}).on(',swipeleft', function(event) {
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "jQuery Mobile", "Swipe", "Right", 1);
+					});
+					$('.swipe').off('swipeleft').on('swipeleft', function(event) {
 						$(this).find("div").html("you swiped <strong>left</strong>!");
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "jQuery Mobile", "Swipe", "Left", 1);
 					});
 				});
 			</script>
@@ -155,5 +159,30 @@
 			
 		</div> <!-- /page -->
 		
+		<div data-role="page" id="popupPanels" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				//http://jquerymobile.com/test/docs/pages/popup/popup-panels.html#&ui-state=dialog
+				
+				$("#popupPanels").bind('pageshow', function() {
+					$("#btnPopupPanel").off('click').on('click', function() {
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "jQuery Mobile", "Popup Panel", "Open", 1);
+					});
+				});
+			</script>
+		
+			<div data-role="header">
+				<h1>jQuery Mobile popupPanels</h1>
+			</div><!-- /header -->
+			
+			<div data-role="content">
+				<a href="#popupPanel" id="btnPopupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button">Open panel</a>				
+				<div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+					<button data-theme="a" data-icon="back" data-mini="true">Back</button>
+					<button data-theme="a" data-icon="grid" data-mini="true">Menu</button>
+					<button data-theme="a" data-icon="search" data-mini="true">Search</button>					 
+				</div>
+			</div><!-- /content -->
+			
+		</div> <!-- /page -->
     </body>
 </html>
