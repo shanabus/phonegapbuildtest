@@ -14,16 +14,7 @@
 				//https://github.com/bobeast/GAPlugin/blob/master/README.md
 				
 				$("#pageGoogleAnalytics").bind('pageshow', function() {
-					if (gaPlugin == undefined) {
-						$("#analyticsResults").html("<span class='error'>GA Plugin is undefined</span>");
-					} else {
-						try {
-							gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Button", "Click", "event only", 1);
-							$("#analyticsResults").html("<span class='success'>GA tracked event!</span>");
-						} catch (e) {
-							$("#analyticsResults").html("<span class='error'>GA Plugin error: " + e + "</span>");
-						}
-					}
+					$("#analyticsResults").html( $("#gaResults").html() );
 				});
 																	
 			</script>
@@ -32,7 +23,7 @@
 				<h1>Google Analytics</h1>
 			</div><!-- /header -->
 
-			<div data-role="content">					
+			<div data-role="content">						
 				<div id="analyticsResults"></div>
 			</div><!-- /content -->
 

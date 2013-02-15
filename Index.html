@@ -51,10 +51,11 @@
 			}
 			
 			function nativePluginResultHandler(obj) {
-				$("#gaResults").append("<br /><span class='warn'>GA Plugin Result</span>");
+				$("#gaResults").append("<br /><span class='warn'>GA Plugin Result - ");
 				if (obj != undefined) {
-					$("#gaResults").append("<br /><span class='warn'>obj = " + obj + "</span>");
+					$("#gaResults").append(obj);
 				}
+				$("#gaResults").append("</span>");
 			}
 			
 			function nativePluginErrorHandler() {
@@ -95,7 +96,7 @@
 					<li><a href="barcode.html">Barcode Scanner</a></li>
 					<li><a href="google_analytics.html">Google Analytics</a></li>
 				</ul>
-				<div id="gaResults"></div>
+				<div id="gaResults" style="display:none;"></div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->

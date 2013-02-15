@@ -40,18 +40,24 @@
 				    // For Mozilla browser: e.g. Firefox
 				    //$needle.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
 					
-					var $compass = $("#compass");
+					//var $compass = $("#compass");
 					// For webkit browsers: e.g. Chrome
-				    $compass.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
+				    //$compass.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
 				    // For Mozilla browser: e.g. Firefox
-				    $compass.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
+				    //$compass.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
+					$('#compass').animate({  textIndent: 0 }, {
+							step: function(now,fx) {
+							  $(this).css('-webkit-transform','rotate(' + degree + 'deg)'); 
+							},
+							duration:'fast'
+						},'linear');
 				}
 
 				// Start watching the compass
 				//
 				function startWatch() {
 
-					// Update compass every 3 seconds
+					// Update compass every 1 second
 					var options = { frequency: 1000 };
 
 					watchID = navigator.compass.watchHeading(onSuccess, onError, options);
