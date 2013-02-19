@@ -10,9 +10,22 @@
 
 		<div data-role="page" id="pageInAppBrowser" data-cache="never">
 			<script type="text/javascript" charset="utf-8">
+				// http://docs.phonegap.com/en/2.3.0/cordova_inappbrowser_inappbrowser.md.html#InAppBrowser
+				
 				$("#pageInAppBrowser").bind('pageshow', function() {
-					//navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);
+					$("#btnOpenBrowser").off("click").on("click", function() {
+						var src = $("#txtUrl").val();
+						openBrowser();
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "InAppBrowser", "Open Browser", src, 1);
+					});
 				});
+				
+				function openBrowser(src) {
+					var ref = window.open(src, '_blank', 'location=yes');
+					 ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+					 ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+					 ref.addEventListener('exit', function() { alert(event.type); });
+				}
 			</script>
 		
 			<div data-role="header">
@@ -20,7 +33,9 @@
 			</div><!-- /header -->
 
 			<div data-role="content">	
-				<div id="currentHeading"></div>
+				<input type="text" id="txtUrl" value="http://apache.org" />
+				<br />
+				<button data-role="button" id="btnOpenBrowser">Open Browser</button>
 			</div><!-- /content -->
 
 		</div><!-- /page -->
