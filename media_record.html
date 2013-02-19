@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PGB Kitchen Sink</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+    	
+		<div data-role="page" id="pageMediaRecord" data-cache="never">
+			<script type="text/javascript" charset="utf-8">
+				// http://docs.phonegap.com/en/2.3.0/cordova_media_media.md.html#Media
+			
+				$("#pageMediaRecord").bind('pageinit', function() {
+					$("#btnStartRecording").off("click").on("click", function() {
+						recordAudio();
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Media", "Record", "Start", 1);
+					});
+				});
+				
+				// Record audio
+				// 
+				function recordAudio() {
+					var src = "myrecording.amr";
+					var mediaRec = new Media(src, onSuccess, onError);
+
+					// Record audio
+					mediaRec.startRecord();
+
+					// Stop recording after 10 sec
+					var recTime = 0;
+					var recInterval = setInterval(function() {
+						recTime = recTime + 1;
+						setAudioPosition(recTime + " sec");
+						if (recTime >= 10) {
+							clearInterval(recInterval);
+							mediaRec.stopRecord();
+						}
+					}, 1000);
+				}
+
+				// onSuccess Callback
+				//
+				function onSuccess() {
+					console.log("recordAudio():Audio Success");
+				}
+
+				// onError Callback 
+				//
+				function onError(error) {
+					alert('code: '    + error.code    + '\n' + 
+						  'message: ' + error.message + '\n');
+				}
+
+				// Set audio position
+				// 
+				function setAudioPosition(position) {
+					$('#audio_position').html("Positoin: " + position);
+				}
+			</script>
+		
+			<div data-role="header">
+				<h1>Record Media</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<button data-role="button" id="btnStartRecord">Start Record</button>
+				
+				<p id="audio_position"></p>
+				<p id="audio_duration"></p>
+				
+			</div>
+		
+		</div>
+    </body>
+</html>
