@@ -13,7 +13,7 @@
 				// http://docs.phonegap.com/en/2.3.0/cordova_media_media.md.html#Media
 			
 				$("#pageMediaRecord").bind('pageinit', function() {
-					$("#btnStartRecording").off("click").on("click", function() {
+					$("#btnStartRecord").off("click").on("click", function() {
 						recordAudio();
 						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Media", "Record", "Start", 1);
 					});
@@ -22,7 +22,7 @@
 				// Record audio
 				// 
 				function recordAudio() {
-					var src = "myrecording.amr";
+					var src = "myrecording.mp3";
 					var mediaRec = new Media(src, onSuccess, onError);
 
 					// Record audio
