@@ -60,6 +60,7 @@
 	<gap:plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<gap:plugin name="Globalization" value="org.apache.cordova.Globalization" />
 	
+	<gap:plugin name="Media" value="org.apache.cordova.AudioHandler" />
 	<gap:plugin name="Notification" value="org.apache.cordova.Notification"/>
 	<gap:plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
 	<gap:plugin name="Storage" value="org.apache.cordova.Storage" />
