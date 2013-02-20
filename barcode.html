@@ -34,7 +34,7 @@
 							$("#scanResults").html("<span class='success'>We got a barcode!</span><br />");
 							
 							if (result.text.indexOf("http://") >= 0) {
-								$("#scanResults").append("Result: <a href='" + result.text + "'>" + result.text + "</a><br />");
+								$("#scanResults").append("Result: <a href='#' onclick='openBrowser(\"" + result.text + "\")'>" + result.text + "</a><br />");
 							} else {
 								$("#scanResults").append("Result: " + result.text + "<br />");
 							}
@@ -63,6 +63,12 @@
 						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Barcode", "Encode", "Error: " + error, 1);
 					  }
 					);
+				}
+				
+				// using inappbrowser plugin
+				function openBrowser(src) {
+					var ref = window.open(src, '_blank', 'location=yes');
+					gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Barcode", "HTTP Opened", src, 1);
 				}
 									
 			</script>

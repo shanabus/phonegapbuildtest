@@ -15,7 +15,7 @@
 				$("#pageInAppBrowser").bind('pageshow', function() {
 					$("#btnOpenBrowser").off("click").on("click", function() {
 						var src = $("#txtUrl").val();
-						openBrowser();
+						openBrowser(src);
 						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "InAppBrowser", "Open Browser", src, 1);
 					});
 				});
