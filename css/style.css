@@ -10,6 +10,11 @@
 	color: green;
 }
 
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 
 #popupPanel-popup {
     right: 0 !important;
@@ -21,6 +26,7 @@
     border-right: none;
     background: rgba(0,0,0,.5);
     margin: -1px 0;
+	height: 100%;
 }
 #popupPanel .ui-btn {
     margin: 2em 15px;

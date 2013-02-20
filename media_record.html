@@ -18,6 +18,10 @@
 						recordAudio();
 						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Media", "Record", "Start", 1);
 					});
+					
+					$("#btnPlay").off("click").on("click", function() {
+						playAudio('myrecording.mp3');
+					});
 				});
 				
 				// Record audio
@@ -47,7 +51,8 @@
 				// onSuccess Callback
 				//
 				function onSuccess() {
-					alert("recordAudio():Audio Success");
+					$("#divResult").append("<p>Record Audio Success</p>");
+					$("#btnStartRecord").button("enable");
 				}
 
 				// onError Callback 
@@ -73,11 +78,12 @@
 				// Play audio
 				//
 				function playAudio(src) {
+					$("#divResult").append("<p>trying to play - " + src + "</p>");
+				
 					// Create Media object from src
 					my_media = new Media(src, onPlaySuccess, onPlayError);
 					$("#btnPlay").button('disable');
-					$("#btnStartRecord").button("enable");
-					
+										
 					// Play audio
 					my_media.play();
 
@@ -94,7 +100,7 @@
 								},
 								// error callback
 								function(e) {
-									alert("Error getting pos=" + e);
+									$("#divResult").append("<p class='error'>Error getting pos=" + e + "</p>");
 									setAudioPosition("Error: " + e);
 								}
 							);
@@ -162,13 +168,15 @@
 				<p id="audio_position"></p>
 				<p id="audio_duration"></p>
 				
+				<div id="divResult"></div>
+				
 			</div>
 			
 			<div id="playbackControls" data-role="footer" data-position="fixed" style="display: none;">
-				<div data-role="controlgroup" data-type="horizontal">					
-					<a href="#" data-role="button" onclick="playAudio('myrecording.mp3');" id="btnPlay" data-icon="arrow-r">Play</a>
-					<a href="#" data-role="button" data-theme="b" onclick="pauseAudio();" data-icon="bars">Pause</a>
-					<a href="#" data-role="button" data-theme="c" onclick="stopAudio();" data-icon="delete">Stop</a>				
+				<div data-role="controlgroup" data-type="horizontal" class="center">					
+					<a href="#" data-role="button" data-icon="arrow-r" id="btnPlay">Play</a>
+					<a href="#" data-role="button" onclick="pauseAudio();" data-icon="bars">Pause</a>
+					<a href="#" data-role="button" onclick="stopAudio();" data-icon="delete">Stop</a>				
 				</div>				
 			</div><!-- /footer -->
 		
