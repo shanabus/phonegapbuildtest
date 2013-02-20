@@ -22,6 +22,8 @@
 				// Record audio
 				// 
 				function recordAudio() {
+					$("#playbackControls").hide();
+					
 					var src = "myrecording.mp3";
 					var mediaRec = new Media(src, onSuccess, onError);
 
@@ -36,6 +38,7 @@
 						if (recTime >= 10) {
 							clearInterval(recInterval);
 							mediaRec.stopRecord();
+							$("#playbackControls").fadeIn();
 						}
 					}, 1000);
 				}
@@ -43,7 +46,7 @@
 				// onSuccess Callback
 				//
 				function onSuccess() {
-					console.log("recordAudio():Audio Success");
+					alert("recordAudio():Audio Success");
 				}
 
 				// onError Callback 
@@ -58,6 +61,93 @@
 				function setAudioPosition(position) {
 					$('#audio_position').html("Positoin: " + position);
 				}
+				
+				// this here below is copied from media_play.html
+				//
+				// Audio player
+				//
+				var my_media = null;
+				var mediaTimer = null;
+				
+				// Play audio
+				//
+				function playAudio(src) {
+					// Create Media object from src
+					my_media = new Media(src, onPlaySuccess, onPlayError);
+					$("#btnPlay").button('disable');
+					
+					// Play audio
+					my_media.play();
+
+					// Update my_media position every second
+					if (mediaTimer == null) {
+						mediaTimer = setInterval(function() {
+							// get my_media position
+							my_media.getCurrentPosition(
+								// success callback
+								function(position) {
+									if (position > -1) {
+										setAudioPosition((position) + " sec");
+									}
+								},
+								// error callback
+								function(e) {
+									alert("Error getting pos=" + e);
+									setAudioPosition("Error: " + e);
+								}
+							);
+						}, 1000);
+					}
+					
+					// Get duration
+					var counter = 0;
+					var timerDur = setInterval(function() {
+						counter = counter + 100;
+						if (counter > 2000) {
+							clearInterval(timerDur);
+						}
+						var dur = my_media.getDuration();
+						if (dur > 0) {
+							clearInterval(timerDur);
+							$('#audio_duration').html("getDuration: " + (dur) + " sec");
+						}
+				   }, 100);
+				   
+				   gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Media", "Play Recorded", src, 1);
+				}
+
+				// Pause audio
+				// 
+				function pauseAudio() {
+					if (my_media) {
+						my_media.pause();
+						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Media", "Pause Recorded", $("#audio_position").text(), 1);
+					}
+				}
+
+				// Stop audio
+				// 
+				function stopAudio() {
+					if (my_media) {
+						my_media.stop();
+					}
+					clearInterval(mediaTimer);
+					mediaTimer = null;
+				}
+				
+				// onSuccess Callback
+				//
+				function onPlaySuccess() {
+					//alert("recordAudio():Audio Success");
+					$("#btnPlay").button('enable');
+				}
+
+				// onError Callback 
+				//
+				function onPlayError(error) {
+					alert('code: '    + error.code    + '\n' + 
+						  'message: ' + error.message + '\n');
+				}
 			</script>
 		
 			<div data-role="header">
@@ -71,6 +161,16 @@
 				<p id="audio_duration"></p>
 				
 			</div>
+			
+			<div data-role="footer">
+				<div id="playbackControls" style="display: none;">
+					<div data-role="controlgroup" data-type="horizontal">					
+						<a href="#" data-role="button" onclick="playAudio('myrecording.mp3');" id="btnPlay" data-icon="arrow-r">Play</a>
+						<a href="#" data-role="button" data-theme="a" onclick="pauseAudio();" data-icon="bars">Pause</a>
+						<a href="#" data-role="button" data-theme="b" onclick="stopAudio();" data-icon="delete">Stop</a>				
+					</div>
+				</div>				
+			</div><!-- /footer -->
 		
 		</div>
     </body>
