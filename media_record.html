@@ -85,13 +85,15 @@
 				
 				// Play audio
 				//
-				function playAudio(src) {
+				function playAudio(src) {					
 					$("#divResult").append("<p>trying to play - " + src + "</p>");
-				
+					
 					// Create Media object from src
 					my_media = mediaRec; // new Media(src, onPlaySuccess, onPlayError);
+					$("#divResult").append("<p>still here - " + my_media.src + "</p>");
+					
 					$("#btnPlay").button('disable');
-					$("#divResult").append("<p>still here - " + src + "</p>");
+					
 					// Play audio
 					my_media.play();
 
@@ -180,7 +182,7 @@
 			</div>
 			
 			<div id="playbackControls" data-role="footer" data-position="fixed" style="display: none;">
-				<div data-role="controlgroup" data-type="horizontal" class="center" style="width: 60%;">					
+				<div data-role="controlgroup" data-type="horizontal" class="center" style="width: 65%;">					
 					<a href="#" data-role="button" data-icon="arrow-r" id="btnPlay">Play</a>
 					<a href="#" data-role="button" onclick="pauseAudio();" data-icon="bars">Pause</a>
 					<a href="#" data-role="button" onclick="stopAudio();" data-icon="delete">Stop</a>				
