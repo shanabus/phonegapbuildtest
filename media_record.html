@@ -20,27 +20,35 @@
 					});
 					
 					$("#btnPlay").off("click").on("click", function() {
-						playAudio('myrecording.mp3');
+						playAudio(mediaRec.src);
 					});
+				});
+				
+				// important to release media on page exit!
+				$("#pageMediaPlay").bind( 'pagehide',function(event, ui){					
+					my_media.release();
+					mediaRec.release();
 				});
 				
 				// Record audio
 				// 
+				var mediaRec = null;
+				
 				function recordAudio() {
 					$("#playbackControls").hide();
 					
 					var src = "myrecording.mp3";
-					var mediaRec = new Media(src, onSuccess, onError);
+					mediaRec = new Media(src, onSuccess, onError);
 
 					// Record audio
 					mediaRec.startRecord();
 
-					// Stop recording after 10 sec
+					// Stop recording after 5 sec
 					var recTime = 0;
 					var recInterval = setInterval(function() {
 						recTime = recTime + 1;
 						setAudioPosition(recTime + " sec");
-						if (recTime >= 10) {
+						if (recTime >= 5) {
 							clearInterval(recInterval);
 							mediaRec.stopRecord();
 							$("#playbackControls").fadeIn();
@@ -65,7 +73,7 @@
 				// Set audio position
 				// 
 				function setAudioPosition(position) {
-					$('#audio_position').html("Positoin: " + position);
+					$('#audio_position').html("Position: " + position);
 				}
 				
 				// this here below is copied from media_play.html
@@ -146,15 +154,14 @@
 				// onSuccess Callback
 				//
 				function onPlaySuccess() {
-					//alert("recordAudio():Audio Success");
+					$("#divResult").append("<p class='warn'>I finished playing?</p>");
 					$("#btnPlay").button('enable');
 				}
 
 				// onError Callback 
 				//
 				function onPlayError(error) {
-					alert('code: '    + error.code    + '\n' + 
-						  'message: ' + error.message + '\n');
+					$("#divResult").append("<p class='error'>Error code: " + error.code + " - message: " + error.message + "</p>");
 				}
 			</script>
 		
@@ -173,7 +180,7 @@
 			</div>
 			
 			<div id="playbackControls" data-role="footer" data-position="fixed" style="display: none;">
-				<div data-role="controlgroup" data-type="horizontal" class="center">					
+				<div data-role="controlgroup" data-type="horizontal" class="center" style="width: 70%;">					
 					<a href="#" data-role="button" data-icon="arrow-r" id="btnPlay">Play</a>
 					<a href="#" data-role="button" onclick="pauseAudio();" data-icon="bars">Pause</a>
 					<a href="#" data-role="button" onclick="stopAudio();" data-icon="delete">Stop</a>				
