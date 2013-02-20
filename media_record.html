@@ -14,6 +14,7 @@
 			
 				$("#pageMediaRecord").bind('pageinit', function() {
 					$("#btnStartRecord").off("click").on("click", function() {
+						$("#btnStartRecord").button("disable");
 						recordAudio();
 						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Media", "Record", "Start", 1);
 					});
@@ -75,6 +76,7 @@
 					// Create Media object from src
 					my_media = new Media(src, onPlaySuccess, onPlayError);
 					$("#btnPlay").button('disable');
+					$("#btnStartRecord").button("enable");
 					
 					// Play audio
 					my_media.play();
@@ -162,13 +164,11 @@
 				
 			</div>
 			
-			<div data-role="footer">
-				<div id="playbackControls" style="display: none;">
-					<div data-role="controlgroup" data-type="horizontal">					
-						<a href="#" data-role="button" onclick="playAudio('myrecording.mp3');" id="btnPlay" data-icon="arrow-r">Play</a>
-						<a href="#" data-role="button" data-theme="a" onclick="pauseAudio();" data-icon="bars">Pause</a>
-						<a href="#" data-role="button" data-theme="b" onclick="stopAudio();" data-icon="delete">Stop</a>				
-					</div>
+			<div id="playbackControls" data-role="footer" data-position="fixed" style="display: none;">
+				<div data-role="controlgroup" data-type="horizontal">					
+					<a href="#" data-role="button" onclick="playAudio('myrecording.mp3');" id="btnPlay" data-icon="arrow-r">Play</a>
+					<a href="#" data-role="button" data-theme="b" onclick="pauseAudio();" data-icon="bars">Pause</a>
+					<a href="#" data-role="button" data-theme="c" onclick="stopAudio();" data-icon="delete">Stop</a>				
 				</div>				
 			</div><!-- /footer -->
 		
