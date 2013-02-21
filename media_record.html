@@ -25,8 +25,7 @@
 				});
 				
 				// important to release media on page exit!
-				$("#pageMediaPlay").bind( 'pagehide',function(event, ui){					
-					my_media.release();
+				$("#pageMediaPlay").bind( 'pagehide',function(event, ui){										
 					mediaRec.release();
 				});
 				
@@ -80,28 +79,26 @@
 				//
 				// Audio player
 				//
-				var my_media = null;
 				var mediaTimer = null;
 				
 				// Play audio
 				//
-				function playAudio(src) {					
-					$("#divResult").append("<p>trying to play - " + src + "</p>");
+				function playAudio() {					
+					$("#divResult").append("<p>trying to play - " + mediaRec.src + "</p>");
 					
 					// Create Media object from src
-					my_media = mediaRec; // new Media(src, onPlaySuccess, onPlayError);
-					$("#divResult").append("<p>still here - " + my_media.src + "</p>");
+					$("#divResult").append("<p>still here - " + mediaRec.src + " - status = " + mediaRec.mediaStatus + "</p>");
 					
 					$("#btnPlay").button('disable');
 					
 					// Play audio
-					my_media.play();
+					mediaRec.play();
 
-					// Update my_media position every second
+					// Update mediaRec position every second
 					if (mediaTimer == null) {
 						mediaTimer = setInterval(function() {
 							// get my_media position
-							my_media.getCurrentPosition(
+							mediaRec.getCurrentPosition(
 								// success callback
 								function(position) {
 									if (position > -1) {
@@ -124,7 +121,7 @@
 						if (counter > 2000) {
 							clearInterval(timerDur);
 						}
-						var dur = my_media.getDuration();
+						var dur = mediaRec.getDuration();
 						if (dur > 0) {
 							clearInterval(timerDur);
 							$('#audio_duration').html("getDuration: " + (dur) + " sec");
@@ -137,8 +134,8 @@
 				// Pause audio
 				// 
 				function pauseAudio() {
-					if (my_media) {
-						my_media.pause();
+					if (mediaRec) {
+						mediaRec.pause();
 						gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Media", "Pause Recorded", $("#audio_position").text(), 1);
 					}
 				}
@@ -146,8 +143,8 @@
 				// Stop audio
 				// 
 				function stopAudio() {
-					if (my_media) {
-						my_media.stop();
+					if (mediaRec) {
+						mediaRec.stop();
 					}
 					clearInterval(mediaTimer);
 					mediaTimer = null;
